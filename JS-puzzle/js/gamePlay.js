@@ -4,10 +4,26 @@
 ************************************/
 
 function GamePlay(gameDivId){
-	this.gameWindow = new GameWindow(gameDivId);
+	this.gameDivId = gameDivId;
+	//create the environment for game
+	this.gameWindow = new GameWindow(this.gameDivId);
 	this.gameWindow.initialize();
-	var scaleId = this.gameWindow.scaleId;
+	var that = this;
+
+	//initialize the canvas play area
+	var currentPlayArea = new PlayArea(
+		document.getElementById(that.gameWindow.sliderWrpId),
+		that.gameWindow.canvasId);
+		currentPlayArea.initialize();
+
+	//event that reads the change of the input value
+	//and starts the game
+	var scaleId = that.gameWindow.scaleId;
 	var scaleBox = document.getElementById(scaleId);
-	console.log(scaleBox.value);
-	
+
+	scaleBox.onchange = function() {	
+		currentPlayArea.initGameState(scaleBox.value);
+		currentPlayArea.displaySlides();
+		var play = new Play(currentPlayArea);
+	}	
 }

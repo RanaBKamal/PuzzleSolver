@@ -65,7 +65,9 @@ function GameWindow(divId){
 		sliderWrapper.style['padding'] = '0';
 		sliderWrapper.style['float'] = 'left';
 		sliderWrapper.setAttribute('id',that.sliderWrpId);
-		var currentPlayArea = new PlayArea( sliderWrapper,that.canvasId);
+		//var currentPlayArea = new PlayArea( sliderWrapper,that.canvasId);
+		//currentPlayArea.initialize();
+		//currentPlayArea.drawOriginal();
 		//currentPlayArea.displaySlides();
 		return sliderWrapper;
 	}
