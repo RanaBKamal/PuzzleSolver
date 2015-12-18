@@ -1,14 +1,21 @@
 /************************************
 	Author:Kamal Bahadur Rana
 	Date Written: Dec 17, 2015 
+	Updated Date: Dec  19, 2015
 ************************************/
 function PlayArea(parent,canvasId){
-	var gameCanvas = document.createElement('CANVAS');
-	this.lng = 480;
-	this.brd = 480;
+	this.gameCanvas;
+	this.widthCanvas = 480;
+	this.heightCanvas = 480;
 	this.canvasId = canvasId;
 	this.gameState;
 	this.gameDimension;
+
+	//for image and the context
+	this.context;
+	this.img;
+
+	var that = this;
 
 	//for direction purpose
 	var directionEnum = Object.freeze({
@@ -18,27 +25,37 @@ function PlayArea(parent,canvasId){
 		DOWN:40
 	});
 
-	var that = this;
-
-	var context = gameCanvas.getContext("2d");
-	var img = new Image();
-	img.src =   'images/elephant.png';
-	img.addEventListener('load',that.displaySlides,false);	
-
+	//function to initialize the canvas element of the play area
 	this.initialize = function(){
-		gameCanvas.setAttribute('id',canvasId);
-		gameCanvas.width = this.lng.toString();
-		gameCanvas.height = this.brd.toString();
-		gameCanvas.display = 'block';
+		var gameCanvas = document.createElement('CANVAS');
+		that.gameCanvas = gameCanvas;
+
+		that.gameCanvas.setAttribute('id',canvasId);
+		that.gameCanvas.width = this.widthCanvas.toString();
+		that.gameCanvas.height = this.heightCanvas.toString();
+		that.gameCanvas.display = 'block';
 		//console.log(gameCanvas);
-		parent.appendChild(gameCanvas);
+		parent.appendChild(that.gameCanvas);
+		that.initContext();
 	}
+
+
+	//function to initialize the context and image source
+	this.initContext = function(){		//init the image source
+		that.context = that.gameCanvas.getContext("2d");
+		that.img = new Image();
+		that.img.src =   'images/elephant.png';
+		that.img.addEventListener('load',that.displaySlides,false);	
+	}
+
+	//function to init the game state
 	this.initGameState = function(gameDimension){
 		that.gameDimension = gameDimension;
 		that.gameState = new Matrix(that.gameDimension,that.gameDimension);
 		that.gameState.initialize();
 	}
 
+	//function to update the game state
 	this.updateGameState = function(keyCode){
 		switch(keyCode){
 			case directionEnum.UP:
@@ -59,8 +76,8 @@ function PlayArea(parent,canvasId){
 	//function to display the current tiles
 	this.displaySlides = function(){
   		var clearence = 1;
-  		context.clearRect ( 0 , 0 , that.lng , that.brd );
-  		var tileSize = that.lng/that.gameDimension;
+  		that.context.clearRect ( 0 , 0 , that.widthCanvas , that.heightCanvas );
+  		var tileSize = that.widthCanvas/that.gameDimension;
   		for (var i = 0; i < that.gameDimension; i++) {
   			for (var j = 0; j < that.gameDimension; j++) {
   				var CurrentNumber = that.gameState.Data[i][j];
@@ -69,8 +86,8 @@ function PlayArea(parent,canvasId){
 	  				var ClipCol = Math.floor((CurrentNumber - 1) / that.gameDimension);
 	  				var Clipx = ClipRow * tileSize;
 	  				var Clipy = ClipCol * tileSize;
-	  				context.drawImage(
-	  				   img, Clipx,Clipy, tileSize, tileSize,
+	  				that.context.drawImage(
+	  				   that.img, Clipx,Clipy, tileSize, tileSize,
 	                   j * tileSize, i * tileSize, tileSize-clearence, tileSize-clearence
 	                );
   				}

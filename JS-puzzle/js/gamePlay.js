@@ -21,6 +21,8 @@ function GamePlay(gameDivId){
 	var scaleId = that.gameWindow.scaleId;
 	var scaleBox = document.getElementById(scaleId);
 
+
+	//to detect the level input by the user then start to play
 	scaleBox.onchange = function() {	
 		currentPlayArea.initGameState(scaleBox.value);
 		currentPlayArea.displaySlides();
