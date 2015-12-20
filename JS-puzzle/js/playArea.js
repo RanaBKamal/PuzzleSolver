@@ -1,7 +1,7 @@
 /************************************
 	Author:Kamal Bahadur Rana
-	Date Written: Dec 17, 2015 
-	Updated Date: Dec  19, 2015
+	Date Written: Dec 16, 2015 
+	Updated Date: Dec  16, 2015
 ************************************/
 function PlayArea(parent,canvasId){
 	this.gameCanvas;
@@ -53,6 +53,7 @@ function PlayArea(parent,canvasId){
 		that.gameDimension = gameDimension;
 		that.gameState = new Matrix(that.gameDimension,that.gameDimension);
 		that.gameState.initialize();
+		//that.gameState.randomizeTiles();
 	}
 
 	//function to update the game state

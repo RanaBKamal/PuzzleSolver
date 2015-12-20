@@ -1,6 +1,7 @@
 /************************************
 	Author:Kamal Bahadur Rana
-	Date Written: Dec 17, 2015 
+	Date Written: Dec 16, 2015
+	Updated: Dec 20,2015 
 ************************************/
 function GameWindow(divId){
 	this.divId = divId;
@@ -9,7 +10,9 @@ function GameWindow(divId){
 	this.sliderWrpId = divId + 'SliderWrp';
 	this.controlWrpId = divId + 'ControlWrp';
 	this.canvasId = divId + 'Canvas';
-	this.scaleId = divId + 'scaleId';
+	this.scaleId = divId + 'Scale';
+	this.playBId = divId + 'playB';
+	this.scoreBId = divId + 'ScoreB';
 
 	var that = this;
   
@@ -82,27 +85,63 @@ function GameWindow(divId){
 		controlWrapper.style.background = '#efefef';
 		controlWrapper.style.float = 'left';
 		controlWrapper.appendChild(that.makeControlSelector());
+		controlWrapper.appendChild(that.makePlayButton());
+		controlWrapper.appendChild(that.makeScoreBoard());
 		return controlWrapper;
 	}
 	
+	//control selector
 	this.makeControlSelector = function(){
 		//level selector container
 		var levelSelectorContainer = document.createElement('DIV');
 		levelSelectorContainer.style.width = '320px';
-		levelSelectorContainer.style.height = '40px';
+		levelSelectorContainer.style.height = '80px';
 		levelSelectorContainer.style.float = 'left';
+		levelSelectorContainer.style['line-height'] = '40px';
 		levelSelectorContainer.style.background = '#abcdef';
 		//create level selector form here
-		levelSelectorContainer.innerHTML = ''+
+		levelSelectorContainer.innerHTML = 'Select Level <br>'+
 		'<form>'+ 
 			'<label>Easy</label>'+
-			'<input type="range" id="'+that.scaleId+'" value="4" min="3" max="5" step="1">'+
+			'<input type="range" id="'+that.scaleId+'" value="4" min="3" max="10" step="1">'+
 			'<label>Hard</label>'+
 		'</form>';
 		levelSelectorContainer.style.color = 'purple';
 		levelSelectorContainer.style['text-align'] = 'center';	
 		//parent.appendChild(levelSelectorContainer);	
 		return levelSelectorContainer;
+	}
+
+	//play button
+	this.makePlayButton = function(){
+		//level selector container
+		var playButtonContainer = document.createElement('BUTTON');
+		playButtonContainer.setAttribute('id',that.playBId);
+		playButtonContainer.style.width = '320px';
+		playButtonContainer.style.height = '40px';
+		playButtonContainer.style.float = 'left';
+		playButtonContainer.style['line-height'] = '40px';
+		playButtonContainer.style.background = '#cdadef';
+		var t = document.createTextNode("PLAY");
+		playButtonContainer.appendChild(t);
+		playButtonContainer.style.color = 'purple';
+		playButtonContainer.style['text-align'] = 'center';
+		return playButtonContainer;
+	}
+
+	//score board 
+	this.makeScoreBoard = function(){
+		//level selector container
+		var scoreContainer = document.createElement('SPAN');
+		scoreContainer.setAttribute('id',that.scoreBId);
+		scoreContainer.style.width = '320px';
+		scoreContainer.style.height = '60px';
+		scoreContainer.style.float = 'left';
+		scoreContainer.style['line-height'] = '60px';
+		scoreContainer.style.background = '#7dadef';
+		scoreContainer.style.color = 'purple';
+		scoreContainer.style['text-align'] = 'center';
+		return scoreContainer;
 	}
 
 }

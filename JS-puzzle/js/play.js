@@ -1,9 +1,10 @@
 /************************************
 	Author:Kamal Bahadur Rana
-	Date Written: Dec 19, 2015 
+	Date Written: Dec 18, 2015
+	Upadated :Dec 20, 2015 
 ************************************/
 
-function Play(playArea) {
+function Play(playArea,scoreB) {
 	this.playArea = playArea;
 	var directionEnum = Object.freeze({
 		LEFT: 37, 
@@ -20,18 +21,39 @@ function Play(playArea) {
 	        case directionEnum.LEFT:
 	            that.playArea.updateGameState(directionEnum.LEFT);
 	            that.playArea.displaySlides();
+	            that.playArea.gameState.stepsMoved++;
+	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
+	            if (that.playArea.gameState.isSolved()) {
+	            	alert('you Win');
+	            }
+
 	            break;
 	        case directionEnum.UP:
 	            that.playArea.updateGameState(directionEnum.UP);
 	            that.playArea.displaySlides();
+	            that.playArea.gameState.stepsMoved++;
+	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
+	            if (that.playArea.gameState.isSolved()) {
+	            	alert('you Win');
+	            }
 	            break;
 	        case directionEnum.RIGHT:
 	            that.playArea.updateGameState(directionEnum.RIGHT);
 	            that.playArea.displaySlides();
+	            that.playArea.gameState.stepsMoved++;
+	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
+	            if (that.playArea.gameState.isSolved()) {
+	            	alert('you Win');
+	            }
 	            break;
 	        case directionEnum.DOWN:
 	            that.playArea.updateGameState(directionEnum.DOWN);
 	            that.playArea.displaySlides();
+	            that.playArea.gameState.stepsMoved++;
+	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
+	            if (that.playArea.gameState.isSolved()) {
+	            	alert('you Win');
+	            }
 	            break;
 	    }
     }
@@ -46,14 +68,23 @@ function Play(playArea) {
     	//searching for the empty tile and swaping
     	for (var i = 0; i < that.playArea.gameDimension; i++) {
     		for (var j = 0; j < that.playArea.gameDimension; j++) {
-    			if(that.playArea.gameState.Data[i][j] == 0){
-    				if ((Math.abs(i - clickedIndexX) + Math.abs(j - clickedIndexY)) == 1) {
+    			if(that.playArea.gameState.Data[i][j] == 0){//replaceable with &&
+    				if (measureDistance(i, j, clickedIndexX, clickedIndexY) == 1) {
     					that.playArea.gameState.swapValueAt(i, j, clickedIndexX, clickedIndexY);
     					that.playArea.displaySlides();
+    					that.playArea.gameState.stepsMoved++;
+    					scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
+    					if (that.playArea.gameState.isSolved()) {
+	            			alert('you Win');
+	            		}
     					console.log('swaped:');
     				}
     			}		
     		}
+    	}
+    	//function to measure distance
+    	function measureDistance(x1,y1,x2,y2){
+    		return (Math.abs(x1 - x2) + Math.abs(y1 - y2));
     	}
     }
 }
