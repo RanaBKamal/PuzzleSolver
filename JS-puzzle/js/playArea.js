@@ -15,15 +15,15 @@ function PlayArea(parent,canvasId){
 	this.context;
 	this.img;
 
-	var that = this;
-
 	//for direction purpose
-	var directionEnum = Object.freeze({
+	this.directionEnum = Object.freeze({
 		LEFT: 37, 
 		RIGHT: 39, 
 		UP: 38,
 		DOWN:40
 	});
+
+	var that = this;
 
 	//function to initialize the canvas element of the play area
 	this.initialize = function(){
@@ -59,16 +59,16 @@ function PlayArea(parent,canvasId){
 	//function to update the game state
 	this.updateGameState = function(keyCode){
 		switch(keyCode){
-			case directionEnum.UP:
+			case that.directionEnum.UP:
 				that.gameState.moveUp();
 				break;
-			case directionEnum.DOWN:
+			case that.directionEnum.DOWN:
 				that.gameState.moveDown();
 				break;
-			case directionEnum.LEFT:
+			case that.directionEnum.LEFT:
 				that.gameState.moveLeft();
 				break;
-			case directionEnum.RIGHT:
+			case that.directionEnum.RIGHT:
 				that.gameState.moveRight();
 				break;
 		}

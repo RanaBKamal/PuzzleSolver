@@ -103,7 +103,7 @@ function GameWindow(divId){
 		levelSelectorContainer.innerHTML = 'Select Level <br>'+
 		'<form>'+ 
 			'<label>Easy</label>'+
-			'<input type="range" id="'+that.scaleId+'" value="4" min="3" max="10" step="1">'+
+			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="10" step="1">'+
 			'<label>Hard</label>'+
 		'</form>';
 		levelSelectorContainer.style.color = 'purple';

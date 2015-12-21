@@ -10,6 +10,10 @@ function Matrix(row,col){
 	this.stepsMoved = 0;
 	this.row = row;
 	this.col = col;
+	this.emptyLocation = new Object();
+	this.emptyLocation.x = this.row-1;
+	this.emptyLocation.y = this.col-1;
+	console.log('Mepyt locations :',this.emptyLocation.x,' ',this.emptyLocation.y);
 	this.Data = new Array(this.row);
 
 	for (var i = 0; i < this.row; i++) {
@@ -61,6 +65,7 @@ function Matrix(row,col){
 						that.swapValueAt(i,j ,i + 1 ,j);
 						console.log('swaped at:','(',i,j,')(',i + 1,j,')');
 						console.log('moveUp Clicked');
+						that.stepsMoved++;
 					}
 					break loop1;
 				}
@@ -78,6 +83,7 @@ function Matrix(row,col){
 						that.swapValueAt(i,j ,i - 1 ,j);
 						console.log('swaped at:','(',i,j,')(',i - 1,j,')');
 						console.log('moveDown Clicked');
+						that.stepsMoved++;
 					}
 					break loop1;
 				}
@@ -95,6 +101,7 @@ function Matrix(row,col){
 						that.swapValueAt(i, j, i, j + 1);
 						console.log('swaped at:','(',i,j,')(',i, j + 1,')');
 						console.log('moveLeft Clicked');
+						that.stepsMoved++;
 					}
 					break loop1;
 				}
@@ -112,6 +119,7 @@ function Matrix(row,col){
 						that.swapValueAt(i,j ,i ,j - 1);
 						console.log('swaped at:','(',i,j,')(',i ,j - 1,')');
 						console.log('moveRight Clicked');
+						that.stepsMoved++;
 					}
 					break loop1;
 				}
@@ -128,8 +136,8 @@ function Matrix(row,col){
 		console.log("total Inversions:",totInv);
 		
 		if (!isSolvable(that.row,that.col,emptyTileRow())) {
-			if ((that.Data[0][0] == 0) || (that.Data[0][1] == 0)) {
-				that.swapValueAt(that.row - 1,0,that.row - 1, 1);
+			if ((that.Data[0][0] == 0) || (that.Data[1][0] == 0)) {
+				that.swapValueAt(that.row - 1,that.row - 1,that.row - 2, that.row - 1);
 			}
 			else{
 				that.swapValueAt(0,0,0,1);

@@ -29,13 +29,12 @@ function GamePlay(gameDivId){
 	var scoreB = document.getElementById(scoreBId);
 	console.log(scoreB);
 
-	playB.onclick = function(){
-		currentPlayArea.initGameState(2);
+	playB.onclick = function(){		
+		currentPlayArea.initGameState(scaleBox.value);
 		currentPlayArea.displaySlides();
-
 		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
 		currentPlayArea.gameState.randomizeTiles();
-		setTimeout(currentPlayArea.displaySlides,1500);
+		setTimeout(currentPlayArea.displaySlides,2500);
 		var play = new Play(currentPlayArea,scoreB);
 	}
 
@@ -45,7 +44,7 @@ function GamePlay(gameDivId){
 		currentPlayArea.displaySlides();
 		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
 		currentPlayArea.gameState.randomizeTiles();
-		setTimeout(currentPlayArea.displaySlides,1500);
+		setTimeout(currentPlayArea.displaySlides,2500);
 		var play = new Play(currentPlayArea,scoreB);
 	}	
 }

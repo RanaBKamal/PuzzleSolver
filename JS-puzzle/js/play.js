@@ -1,4 +1,4 @@
-/************************************
+/********xxxxx****************************
 	Author:Kamal Bahadur Rana
 	Date Written: Dec 18, 2015
 	Upadated :Dec 20, 2015 
@@ -6,53 +6,42 @@
 
 function Play(playArea,scoreB) {
 	this.playArea = playArea;
-	var directionEnum = Object.freeze({
-		LEFT: 37, 
-		RIGHT: 39, 
-		UP: 38,
-		DOWN:40
-	});
-
 	var that = this;
 
 	//keyDown event handling
 	document.onkeydown = function(e) {
 	    switch (e.keyCode) {
-	        case directionEnum.LEFT:
-	            that.playArea.updateGameState(directionEnum.LEFT);
+	        case that.playArea.directionEnum.LEFT:
+	            that.playArea.updateGameState(that.playArea.directionEnum.LEFT);
 	            that.playArea.displaySlides();
-	            that.playArea.gameState.stepsMoved++;
 	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
 	            if (that.playArea.gameState.isSolved()) {
-	            	alert('you Win');
+	            	that.displayWin();
 	            }
 
 	            break;
-	        case directionEnum.UP:
-	            that.playArea.updateGameState(directionEnum.UP);
+	        case that.playArea.directionEnum.UP:
+	            that.playArea.updateGameState(that.playArea.directionEnum.UP);
 	            that.playArea.displaySlides();
-	            that.playArea.gameState.stepsMoved++;
 	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
 	            if (that.playArea.gameState.isSolved()) {
-	            	alert('you Win');
+	            	that.displayWin();
 	            }
 	            break;
-	        case directionEnum.RIGHT:
-	            that.playArea.updateGameState(directionEnum.RIGHT);
+	        case that.playArea.directionEnum.RIGHT:
+	            that.playArea.updateGameState(that.playArea.directionEnum.RIGHT);
 	            that.playArea.displaySlides();
-	            that.playArea.gameState.stepsMoved++;
 	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
 	            if (that.playArea.gameState.isSolved()) {
-	            	alert('you Win');
+	            	that.displayWin();
 	            }
 	            break;
-	        case directionEnum.DOWN:
-	            that.playArea.updateGameState(directionEnum.DOWN);
+	        case that.playArea.directionEnum.DOWN:
+	            that.playArea.updateGameState(that.playArea.directionEnum.DOWN);
 	            that.playArea.displaySlides();
-	            that.playArea.gameState.stepsMoved++;
 	            scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
 	            if (that.playArea.gameState.isSolved()) {
-	            	alert('you Win');
+	            	that.displayWin();
 	            }
 	            break;
 	    }
@@ -71,11 +60,11 @@ function Play(playArea,scoreB) {
     			if(that.playArea.gameState.Data[i][j] == 0){//replaceable with &&
     				if (measureDistance(i, j, clickedIndexX, clickedIndexY) == 1) {
     					that.playArea.gameState.swapValueAt(i, j, clickedIndexX, clickedIndexY);
-    					that.playArea.displaySlides();
     					that.playArea.gameState.stepsMoved++;
+    					that.playArea.displaySlides();
     					scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
     					if (that.playArea.gameState.isSolved()) {
-	            			alert('you Win');
+	            			that.displayWin();
 	            		}
     					console.log('swaped:');
     				}
@@ -86,5 +75,18 @@ function Play(playArea,scoreB) {
     	function measureDistance(x1,y1,x2,y2){
     		return (Math.abs(x1 - x2) + Math.abs(y1 - y2));
     	}
+    }
+
+    //function to display win window
+    this.displayWin = function(){
+    	that.playArea.context.font="72px Verdana";
+		// Create gradient
+		var gradient=that.playArea.context.createLinearGradient(0,0,400,0);
+		gradient.addColorStop("0","magenta");
+		gradient.addColorStop("0.5","blue");
+		gradient.addColorStop("1.0","red");
+		// Fill with gradient
+		that.playArea.context.fillStyle=gradient;
+		that.playArea.context.fillText("YOU WIN",80,300);
     }
 }
