@@ -16,12 +16,6 @@ function PlayArea(parent,canvasId){
 	this.img;
 
 	//for direction purpose
-	this.directionEnum = Object.freeze({
-		LEFT: 37, 
-		RIGHT: 39, 
-		UP: 38,
-		DOWN:40
-	});
 
 	var that = this;
 
@@ -54,24 +48,6 @@ function PlayArea(parent,canvasId){
 		that.gameState = new Matrix(that.gameDimension,that.gameDimension);
 		that.gameState.initialize();
 		//that.gameState.randomizeTiles();
-	}
-
-	//function to update the game state
-	this.updateGameState = function(keyCode){
-		switch(keyCode){
-			case that.directionEnum.UP:
-				that.gameState.moveUp();
-				break;
-			case that.directionEnum.DOWN:
-				that.gameState.moveDown();
-				break;
-			case that.directionEnum.LEFT:
-				that.gameState.moveLeft();
-				break;
-			case that.directionEnum.RIGHT:
-				that.gameState.moveRight();
-				break;
-		}
 	}
 
 	//function to display the current tiles

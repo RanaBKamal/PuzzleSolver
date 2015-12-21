@@ -64,7 +64,7 @@ function GameWindow(divId){
 		var sliderWrapper = document.createElement('DIV');
 		sliderWrapper.style.width = '480px';
 		sliderWrapper.style.height = '480px';
-		sliderWrapper.style.background = '#14343a';
+		sliderWrapper.style.background = '#ff0000';
 		sliderWrapper.style['padding'] = '0';
 		sliderWrapper.style['float'] = 'left';
 		sliderWrapper.setAttribute('id',that.sliderWrpId);

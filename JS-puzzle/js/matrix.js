@@ -7,18 +7,26 @@
 
 
 function Matrix(row,col){
+	
+	this.directionEnum = Object.freeze({
+		LEFT: 37, 
+		RIGHT: 39, 
+		UP: 38,
+		DOWN:40
+	});
+
 	this.stepsMoved = 0;
 	this.row = row;
 	this.col = col;
+	
 	this.emptyLocation = new Object();
-	this.emptyLocation.x = this.row-1;
-	this.emptyLocation.y = this.col-1;
-	console.log('Mepyt locations :',this.emptyLocation.x,' ',this.emptyLocation.y);
+	
 	this.Data = new Array(this.row);
 
 	for (var i = 0; i < this.row; i++) {
 		this.Data[i] = new Array(this.col);
 	};
+
 	var that = this;
 	this.initialize = function(){
 		var k =  1;
@@ -28,22 +36,65 @@ function Matrix(row,col){
 			}
 		}
 		that.Data[that.row - 1][that.col - 1] = 0;
+		that.emptyLocation.x = that.row-1;
+		that.emptyLocation.y = that.col-1;
+		console.log('Mepyt locations :',this.emptyLocation.x,' ',this.emptyLocation.y);
 	}
 
-	//check if solved
-	this.isSolved = function(){
-		var k = 1;
-		for (var i = 0; i < that.row; i++) {
-			for (var j = 0; j < that.col; j++) {
-				if (k != (that.row * that.col)) {
-					if (that.Data[i][j] != k) {
-						return false;
-					}
-				}
-				k++;
-			}
+	this.getAllMoves = function(){
+		var moves = [];
+		if(that.emptyLocation.x == 0)
+			moves.push(that.directionEnum.UP);
+		if(that.emptyLocation.x >0 && that.emptyLocation.x < that.row-1){
+			moves.push(that.directionEnum.UP);
+			moves.push(that.directionEnum.DOWN);
 		}
-		return true;
+		if(that.emptyLocation.x == that.row -1 )
+			moves.push(that.directionEnum.DOWN);
+		if(that.emptyLocation.y == 0)
+			moves.push(that.directionEnum.LEFT)
+		if(that.emptyLocation.y > 0 && that.emptyLocation.y < that.col -1){
+			moves.push(that.directionEnum.RIGHT);
+			moves.push(that.directionEnum.LEFT);
+		}
+		if(that.emptyLocation.y == that.col -1){
+			moves.push(that.directionEnum.RIGHT);
+		}
+		return moves;
+	}
+	this.move = function(direction){
+		switch(direction){
+			case that.directionEnum.UP:
+				if(that.emptyLocation.x+1 <= that.row -1){
+					that.swapValueAt(that.emptyLocation.x,that.emptyLocation.y,that.emptyLocation.x+1,that.emptyLocation.y);
+					that.emptyLocation.x++;
+					that.stepsMoved++;
+				}
+				break;
+			case that.directionEnum.DOWN:
+				if(that.emptyLocation.x -1 >=0 ){
+					that.swapValueAt(that.emptyLocation.x,that.emptyLocation.y,that.emptyLocation.x-1,that.emptyLocation.y);
+					that.emptyLocation.x--;
+					that.stepsMoved++;
+				}
+				break;
+			case that.directionEnum.LEFT:
+				if(that.emptyLocation.y+1 <= that.col-1){
+					that.swapValueAt(that.emptyLocation.x,that.emptyLocation.y,that.emptyLocation.x,that.emptyLocation.y+1);
+					that.emptyLocation.y++;
+					that.stepsMoved++;
+
+				}
+				break;
+			case that.directionEnum.RIGHT:
+				if(that.emptyLocation.y -1 >= 0 ){
+					that.swapValueAt(that.emptyLocation.x,that.emptyLocation.y,that.emptyLocation.x,that.emptyLocation.y-1);
+					that.emptyLocation.y--;
+					that.stepsMoved++;
+				}
+				break;
+		}
+
 	}
 
 	// swap values at the specified position
@@ -53,81 +104,16 @@ function Matrix(row,col){
 		that.Data[x1][y1] = that.Data[x2][y2];
 		that.Data[x2][y2] = tempVal;
 	}
+	this.randomizeTilesPra = function(){
+		var Moves = [40,38,37,39,40,38,38,39];
+		for(var i = 0; i < Moves.length; i++){
+			that.move(Moves[i]);
+		}
+
+	}
 	
-
-	//move up function
-	this.moveUp = function(){
-		loop1:
-		for (var i = 0; i < that.row; i++) {
-			for (var j = 0; j < that.col; j++) {
-				if (that.Data[i][j] == 0 ) {
-					if ( i != (that.row  - 1)){
-						that.swapValueAt(i,j ,i + 1 ,j);
-						console.log('swaped at:','(',i,j,')(',i + 1,j,')');
-						console.log('moveUp Clicked');
-						that.stepsMoved++;
-					}
-					break loop1;
-				}
-			}
-		}
-	}
-
-	//function to move down
-	this.moveDown = function(){
-		loop1:
-		for (var i = 0; i < that.row; i++) {
-			for (var j = 0; j < that.col; j++) {
-				if (that.Data[i][j] == 0 ) {
-					if ( i != 0){
-						that.swapValueAt(i,j ,i - 1 ,j);
-						console.log('swaped at:','(',i,j,')(',i - 1,j,')');
-						console.log('moveDown Clicked');
-						that.stepsMoved++;
-					}
-					break loop1;
-				}
-			}
-		}
-	}
-
-	//function to move left
-	this.moveLeft = function(){
-		loop1:
-		for (var i = 0; i < that.row; i++) {
-			for (var j = 0; j < that.col; j++) {
-				if (that.Data[i][j] == 0 ) {
-					if ( j != (that.col - 1) ){
-						that.swapValueAt(i, j, i, j + 1);
-						console.log('swaped at:','(',i,j,')(',i, j + 1,')');
-						console.log('moveLeft Clicked');
-						that.stepsMoved++;
-					}
-					break loop1;
-				}
-			}
-		}	
-	}
-
-	//function to move right
-	this.moveRight = function(){
-		loop1:
-		for (var i = 0; i < that.row; i++) {
-			for (var j = 0; j < that.col; j++) {
-				if (that.Data[i][j] == 0 ) {
-					if ( j != 0){
-						that.swapValueAt(i,j ,i ,j - 1);
-						console.log('swaped at:','(',i,j,')(',i ,j - 1,')');
-						console.log('moveRight Clicked');
-						that.stepsMoved++;
-					}
-					break loop1;
-				}
-			}
-		}
-	}
-
 	//to be wtitten here
+	// This is very expensive randomization in my view.
 	this.randomizeTiles = function(){
 		
 		//that.swapValueAt(0,0,that.row - 1,that.row - 1);
@@ -146,7 +132,14 @@ function Matrix(row,col){
 
 		var totInv = sumInversions();
 		console.log("total Inversions:",totInv);
-
+		for(var i = 0; i < that.row; i++){
+			for(var j = 0; j < that.col; j++){
+				if(that.Data[i][j] == 0){
+					that.emptyLocation.x = i;
+					that.emptyLocation.y = j;
+				}
+			}
+		}
 		//function to randomize at first
 		function initTiles(){
 			var i = that.row * that.col - 1;
@@ -219,5 +212,24 @@ function Matrix(row,col){
 			}
 		}
 	}
+
+	//check if solved
+	this.isSolved = function(){
+		var k = 1;
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.col; j++) {
+				if (k != (that.row * that.col)) {
+					if (that.Data[i][j] != k) {
+						return false;
+					}
+				}
+				k++;
+			}
+		}
+		return true;
+	}
+
+
+
 
 }
