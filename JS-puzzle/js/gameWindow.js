@@ -13,6 +13,7 @@ function GameWindow(divId){
 	this.scaleId = divId + 'Scale';
 	this.playBId = divId + 'playB';
 	this.scoreBId = divId + 'ScoreB';
+	this.autoSolveId = divId + 'autoSolve';
 
 	var that = this;
   
@@ -24,22 +25,24 @@ function GameWindow(divId){
 		mainWindowWrapper.style.background = '#a4343a';
 		mainWindowWrapper.style['margin'] = '0 auto';
 		mainWindowWrapper.style['padding'] = '0';
-		//that.makeTitleBar(mainWindowWrapper);
 		mainWindowWrapper.appendChild(that.makeTitleBar());
-		//that.makeBody(mainWindowWrapper);
 		mainWindowWrapper.appendChild(that.makeBody());
 	}
 
 	this.makeTitleBar = function(){
-		//wrapper for title window
 		var titleDiv = document.createElement('DIV');
 		titleDiv.style.width = '796px';
 		titleDiv.style.height = '116px';
-		titleDiv.style.background = '#444444';
+		titleDiv.style['font-size'] = '34px';
+		titleDiv.style['line-height'] = '116px';
+		titleDiv.style.color = '#ff00ff';
+		titleDiv.style['text-align'] = 'center';
+		var t = document.createTextNode("IMAGE PUZZLE WITH AUTOSOLVER");
+		titleDiv.appendChild(t);
+		titleDiv.style.background = '#4dadef';
 		titleDiv.style['border'] = '2px solid blue';
 		titleDiv.setAttribute('id',that.titleWrpId);
 		return titleDiv;
-		//parent.appendChild(titleDiv);
 	}
 
 	this.makeBody = function(){
@@ -53,10 +56,7 @@ function GameWindow(divId){
 		bodyWrapper.setAttribute('id',that.bodyWrpId);
 		bodyWrapper.appendChild(that.makeSliderWrapper());
 		bodyWrapper.appendChild(that.makeControlWrapper());
-		//that.makeSliderWrapper(bodyWrapper);
-		//that.makeControlWrapper(bodyWrapper);
 		return bodyWrapper;
-		//parent.appendChild(bodyWrapper);	
 	}
 	
 	this.makeSliderWrapper = function(){
@@ -64,14 +64,10 @@ function GameWindow(divId){
 		var sliderWrapper = document.createElement('DIV');
 		sliderWrapper.style.width = '480px';
 		sliderWrapper.style.height = '480px';
-		sliderWrapper.style.background = '#ff0000';
+		sliderWrapper.style.background = '#4f0000';
 		sliderWrapper.style['padding'] = '0';
 		sliderWrapper.style['float'] = 'left';
 		sliderWrapper.setAttribute('id',that.sliderWrpId);
-		//var currentPlayArea = new PlayArea( sliderWrapper,that.canvasId);
-		//currentPlayArea.initialize();
-		//currentPlayArea.drawOriginal();
-		//currentPlayArea.displaySlides();
 		return sliderWrapper;
 	}
 
@@ -87,6 +83,8 @@ function GameWindow(divId){
 		controlWrapper.appendChild(that.makeControlSelector());
 		controlWrapper.appendChild(that.makePlayButton());
 		controlWrapper.appendChild(that.makeScoreBoard());
+		controlWrapper.appendChild(that.makeAutoSolveButton());
+		controlWrapper.appendChild(that.makeOriginalImage());
 		return controlWrapper;
 	}
 	
@@ -108,7 +106,6 @@ function GameWindow(divId){
 		'</form>';
 		levelSelectorContainer.style.color = 'purple';
 		levelSelectorContainer.style['text-align'] = 'center';	
-		//parent.appendChild(levelSelectorContainer);	
 		return levelSelectorContainer;
 	}
 
@@ -142,6 +139,34 @@ function GameWindow(divId){
 		scoreContainer.style.color = 'purple';
 		scoreContainer.style['text-align'] = 'center';
 		return scoreContainer;
+	}
+
+	//score board 
+	this.makeAutoSolveButton = function(){
+		//level selector container
+		var solveButtonContainer = document.createElement('BUTTON');
+		solveButtonContainer.setAttribute('id',that.autoSolveId);
+		solveButtonContainer.style.width = '320px';
+		solveButtonContainer.style.height = '60px';
+		solveButtonContainer.style.float = 'left';
+		solveButtonContainer.style['line-height'] = '60px';
+		solveButtonContainer.style.background = '#7dadef';
+		solveButtonContainer.style['font-weight'] = 'bold';
+		var t = document.createTextNode("AUTO SOLVE");
+		solveButtonContainer.appendChild(t);
+		solveButtonContainer.style.color = 'purple';
+		solveButtonContainer.style['text-align'] = 'center';
+		return solveButtonContainer;
+	}
+
+	this.makeOriginalImage = function(){
+		var originalImageContainer = document.createElement('IMG');
+		originalImageContainer.style.width = '240px';
+		originalImageContainer.style.height = '240px';
+		originalImageContainer.src = 'images/elephant.png';
+		originalImageContainer.style['padding-left'] = '40px';
+		originalImageContainer.style['padding-right'] = '40px';
+		return originalImageContainer;		
 	}
 
 }

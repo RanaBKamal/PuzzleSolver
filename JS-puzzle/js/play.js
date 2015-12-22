@@ -23,7 +23,7 @@ function Play(playArea,scoreB) {
     }
 
     //detect and apply the onclick event
-    that.playArea.gameCanvas.onclick = function(e) {
+    this.playArea.gameCanvas.onclick = function(e) {
 		var clickIndex = new Object();
     	clickIndex.y = Math.floor((e.pageX - this.offsetLeft) / (that.playArea.widthCanvas / that.playArea.gameDimension));
     	clickIndex.x = Math.floor((e.pageY - this.offsetTop) /(that.playArea.heightCanvas / that.playArea.gameDimension));

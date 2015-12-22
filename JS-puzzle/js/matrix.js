@@ -38,9 +38,10 @@ function Matrix(row,col){
 		that.Data[that.row - 1][that.col - 1] = 0;
 		that.emptyLocation.x = that.row-1;
 		that.emptyLocation.y = that.col-1;
-		console.log('Mepyt locations :',this.emptyLocation.x,' ',this.emptyLocation.y);
+		console.log('empyt locations :',this.emptyLocation.x,' ',this.emptyLocation.y);
 	}
 
+	//function to get all moves
 	this.getAllMoves = function(){
 		var moves = [];
 		if(that.emptyLocation.x == 0)
@@ -62,6 +63,16 @@ function Matrix(row,col){
 		}
 		return moves;
 	}
+
+	//function to get all moves
+	this.makeAllMoves = function(moves){
+		var children = [];
+		for(var move in moves){
+			var current = that;
+			
+		}
+	}
+
 	this.move = function(direction){
 		switch(direction){
 			case that.directionEnum.UP:
@@ -112,11 +123,8 @@ function Matrix(row,col){
 
 	}
 	
-	//to be wtitten here
-	// This is very expensive randomization in my view.
+	//randomization function
 	this.randomizeTiles = function(){
-		
-		//that.swapValueAt(0,0,that.row - 1,that.row - 1);
 		initTiles();
 		var totInv = sumInversions();
 		console.log("total Inversions:",totInv);
@@ -132,6 +140,8 @@ function Matrix(row,col){
 
 		var totInv = sumInversions();
 		console.log("total Inversions:",totInv);
+
+		//update the location of the empty position after ram=ndomization
 		for(var i = 0; i < that.row; i++){
 			for(var j = 0; j < that.col; j++){
 				if(that.Data[i][j] == 0){
@@ -153,7 +163,6 @@ function Matrix(row,col){
 			    --i;
 			}
 		}
-
 		//function to count the inversions of each tile
 		function countInversions(indexX,indexY){
 			var X = indexX;
@@ -168,14 +177,10 @@ function Matrix(row,col){
 			 	var compValue = that.Data[k][l];
 			 	if(tileValue > compValue && compValue != 0){
 			 		++inversions;
-			 		//console.log('tile value:',tileValue);
-			 		//console.log('compValue:K,l:',k,l,':',compValue);
-			 		//console.log('counted:',inversions);
 			 	}
 			}
 			return inversions;
 		}
-
 		//function to sum up the total inversions
 		function sumInversions(){
 			var totInversions = 0;
@@ -187,7 +192,6 @@ function Matrix(row,col){
 			}
 			return totInversions;
 		}
-
 		//check if solvable
 		function isSolvable(puzWidth,puzHeight,emptyRow){
 			var pRow = puzWidth;
@@ -200,7 +204,6 @@ function Matrix(row,col){
 				return (((sumInversions() + pCol - eRow)% 2) == 0)
 			}				
 		}
-
 		//function to return the row position of the empty tile
 		function emptyTileRow(){
 			for (var i = 0; i < that.row; i++) {
@@ -228,8 +231,4 @@ function Matrix(row,col){
 		}
 		return true;
 	}
-
-
-
-
 }

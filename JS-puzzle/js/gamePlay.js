@@ -17,8 +17,7 @@ function GamePlay(gameDivId){
 		that.gameWindow.canvasId);
 		currentPlayArea.initialize();
 
-	//event that reads the change of the input value
-	//and starts the game
+	//taking Ids of the frameWindow elements
 	var scaleId = that.gameWindow.scaleId;
 	var scaleBox = document.getElementById(scaleId);
 
@@ -27,24 +26,13 @@ function GamePlay(gameDivId){
 
 	var scoreBId = that.gameWindow.scoreBId;
 	var scoreB = document.getElementById(scoreBId);
-	console.log(scoreB);
 
 	playB.onclick = function(){		
 		currentPlayArea.initGameState(scaleBox.value);
 		currentPlayArea.displaySlides();
 		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
 		currentPlayArea.gameState.randomizeTiles();
-		setTimeout(currentPlayArea.displaySlides,2500);
+		setTimeout(currentPlayArea.displaySlides,1500);
 		var play = new Play(currentPlayArea,scoreB);
 	}
-
-	//to detect the level input by the user then start to play
-	scaleBox.onchange = function() {	
-		currentPlayArea.initGameState(scaleBox.value);
-		currentPlayArea.displaySlides();
-		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
-		currentPlayArea.gameState.randomizeTiles();
-		setTimeout(currentPlayArea.displaySlides,2500);
-		var play = new Play(currentPlayArea,scoreB);
-	}	
 }

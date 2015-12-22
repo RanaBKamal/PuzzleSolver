@@ -15,8 +15,6 @@ function PlayArea(parent,canvasId){
 	this.context;
 	this.img;
 
-	//for direction purpose
-
 	var that = this;
 
 	//function to initialize the canvas element of the play area
@@ -28,7 +26,6 @@ function PlayArea(parent,canvasId){
 		that.gameCanvas.width = this.widthCanvas.toString();
 		that.gameCanvas.height = this.heightCanvas.toString();
 		that.gameCanvas.display = 'block';
-		//console.log(gameCanvas);
 		parent.appendChild(that.gameCanvas);
 		that.initContext();
 	}
@@ -47,7 +44,6 @@ function PlayArea(parent,canvasId){
 		that.gameDimension = gameDimension;
 		that.gameState = new Matrix(that.gameDimension,that.gameDimension);
 		that.gameState.initialize();
-		//that.gameState.randomizeTiles();
 	}
 
 	//function to display the current tiles
