@@ -7,9 +7,10 @@ function Problem(initialGameState, goalGameState){
 	var that = this;
 	//funtion to advance
 	this.solve = function(){
-		var rootNode = new SlideNode(that.initialState,that.initialState);
+		var rootNode = new SlideNode(that.initialState,that.goalState);
 		var rootChildren = rootNode.getChildren();
 		that.fringe.putChildren(rootChildren);
+		console.log('Fringe initially:',that.fringe);
 
 		var counter = 0;
 		while(counter < 999){
@@ -18,7 +19,10 @@ function Problem(initialGameState, goalGameState){
 				return false;
 			}
 			else{
+
 				var currentNode = that.fringe.getChild();
+				console.log('current node:',currentNode);
+				console.log('isSolved checked:',currentNode.gameState.isSolved());
 				if(currentNode.gameState.isSolved()){
 					console.log('solution found:');
 					that.solutionStep = currentNode.getStepsTaken();
@@ -32,7 +36,9 @@ function Problem(initialGameState, goalGameState){
 					return true;
 				}
 				else{
+					console.log('isSolved checked:',currentNode.gameState.isSolved());
 					var children = currentNode.getChildren();
+					console.log('children are:',children);
 					that.fringe.putChildren(children);
 				}
 			}

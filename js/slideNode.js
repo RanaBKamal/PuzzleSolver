@@ -82,7 +82,7 @@ function SlideNode(gameState,ancestor){
 		console.log('gameState:',that.gameState);
 		console.log('Ancestor:',that.ancestor);
 		console.log('Depth:',that.depth);
-		console.log('cost:',that.cost);
+		console.log('cost:',that.pathCost);
 		console.log('action:',that.slideAction);
 	}
 } 

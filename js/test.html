@@ -9,11 +9,13 @@
 </head>
 <body>
 <script >
-	var matrix = new Matrix(2,2);
+	var matrix = new Matrix(3,3);
 	matrix.initialize();
-	var gMatrix = new Matrix(2,2);
+	var gMatrix = new Matrix(3,3);
 	gMatrix.initialize();
 	matrix.move(matrix.directionEnum.DOWN);
+	matrix.move(matrix.directionEnum.DOWN);
+	matrix.move(matrix.directionEnum.RIGHT);
 	matrix.move(matrix.directionEnum.RIGHT);
 
 	var eightProblem = new Problem(matrix,gMatrix);

@@ -67,7 +67,8 @@ function Matrix(row,col){
 	//function to return the copy of the matrix
 	function returnCopyMatrix(originalMatrix){
 		var oMatrix = originalMatrix;
-		cMatrix = new Matrix(oMatrix.row,oMatrix.col);
+		var cMatrix = new Matrix(oMatrix.row,oMatrix.col);
+		cMatrix.initialize();
 
 		for (var i = 0; i < that.row; i++) {
 			for (var j = 0; j < that.col; j++) {
@@ -82,7 +83,6 @@ function Matrix(row,col){
 		var children = [];
 		for(var move in moves){
 			var current = returnCopyMatrix(that);
-			current.initialize();
 			current.move(moves[move]);
 			children.push(current);
 		}
@@ -95,10 +95,9 @@ function Matrix(row,col){
 	}
 
 	this.makeOneMoves = function(currentMove){
-		var children = returnCopyMatrix(that);
-		children.initialize();
-		children.move(currentMove);
-		return children;
+		var child = returnCopyMatrix(that);
+		child.move(currentMove);
+		return child;
 	}
 
 	this.move = function(direction){

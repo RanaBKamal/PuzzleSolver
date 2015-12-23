@@ -1,1 +1,0 @@
-hello i am starting Puzzle auto solver for LF project
