@@ -7,7 +7,8 @@ function Fringe(){
 		that.sequence.push(childrenToPush[child]);
 		}
 	}
+
 	this.getChild = function(){
-		return that.sequence.pop();
+		return that.sequence.shift();
 	}
 }
