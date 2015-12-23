@@ -11,7 +11,12 @@
 <script >
 	var matrix = new Matrix(2,2);
 	matrix.initialize();
-	var eightProblem = new Problem(matrix,matrix);
+	var gMatrix = new Matrix(2,2);
+	gMatrix.initialize();
+	matrix.move(matrix.directionEnum.DOWN);
+	matrix.move(matrix.directionEnum.RIGHT);
+
+	var eightProblem = new Problem(matrix,gMatrix);
 	eightProblem.displayProblemInfo();
 	eightProblem.solve();
 </script>

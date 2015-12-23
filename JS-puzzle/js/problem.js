@@ -1,4 +1,4 @@
-function Problem(initialGameState,goalGameState){
+function Problem(initialGameState, goalGameState){
 	this.initialState = initialGameState;
 	this.goalState = goalGameState;
 	this.fringe = new Fringe();
@@ -20,13 +20,13 @@ function Problem(initialGameState,goalGameState){
 			else{
 				var currentNode = that.fringe.getChild();
 				if(currentNode.gameState.isSolved()){
-					concole.log('solution found:');
+					console.log('solution found:');
 					that.solutionStep = currentNode.getStepsTaken();
 					console.log('HERE IS THE SOLUTION::');
 					var current = that.initialState;
 					for(var step in that.solutionStep){
 						console.log('step:',current.Data);
-						current.move(solutionStep[step]);
+						current.move(that.solutionStep[step]);
 					}
 					console.log('Depth is :',currentNode.getDepth());
 					return true;
