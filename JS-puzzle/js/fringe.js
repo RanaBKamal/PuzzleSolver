@@ -1,10 +1,13 @@
 function Fringe(){
 	this.sequence = [];
 	var that = this;
-	this.putChildren = function(node){
-		that.sequence.push(node);
+	this.putChildren = function(children){
+		var childrenToPush = children;
+		for(var child in childrenToPush){
+			that.sequence.push(childrenToPush[child]);
+		}
 	}
-	this.getChildren = function(){
+	this.getChild = function(){
 		return that.sequence.pop();
 	}
 }

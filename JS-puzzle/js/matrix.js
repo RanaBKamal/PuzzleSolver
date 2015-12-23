@@ -64,13 +64,41 @@ function Matrix(row,col){
 		return moves;
 	}
 
-	//function to get all moves
-	this.makeAllMoves = function(moves){
+	//function to return the copy of the matrix
+	function returnCopyMatrix(originalMatrix){
+		var oMatrix = originalMatrix;
+		cMatrix = new Matrix(oMatrix.row,oMatrix.col);
+
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.col; j++) {
+				cMatrix.Data[i][j] = oMatrix.Data[i][j];
+			}
+		}
+		return cMatrix;
+	}
+
+	//function to make moves
+	this.makeMoves = function(moves){
 		var children = [];
 		for(var move in moves){
-			var current = that;
-			
+			var current = returnCopyMatrix(that);
+			current.initialize();
+			current.move(moves[move]);
+			children.push(current);
 		}
+		return children;
+	}
+
+	this.makeAllMoves = function(){
+		var moves = that.getAllMoves();
+		return that.makeMoves(moves);
+	}
+
+	this.makeOneMoves = function(currentMove){
+		var children = returnCopyMatrix(that);
+		children.initialize();
+		children.move(currentMove);
+		return children;
 	}
 
 	this.move = function(direction){
