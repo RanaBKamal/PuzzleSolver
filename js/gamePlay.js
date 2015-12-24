@@ -31,8 +31,15 @@ function GamePlay(gameDivId){
 		currentPlayArea.initGameState(scaleBox.value);
 		currentPlayArea.displaySlides();
 		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
-		currentPlayArea.gameState.randomizeTiles();
+		currentPlayArea.gameState.randomize();
 		setTimeout(currentPlayArea.displaySlides,1500);
 		var play = new Play(currentPlayArea,scoreB);
+	}
+
+	var autoSolveId = that.gameWindow.autoSolveId;
+	var autoSolveB = document.getElementById(autoSolveId);
+
+	autoSolveB.onclick = function(){
+		
 	}
 }

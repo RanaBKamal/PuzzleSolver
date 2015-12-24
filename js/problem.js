@@ -1,8 +1,8 @@
 function Problem(initialNode, goalNode){
 	this.initialNode = initialNode;
 	this.goalNode = goalNode;
-	console.log(' I am currently ');this.initialNode.state.displayConsole();
-	console.log(' I am trying to reach');this.goalNode.state.displayConsole();
+	//console.log(' I am currently ');this.initialNode.state.displayConsole();
+	//console.log(' I am trying to reach');this.goalNode.state.displayConsole();
 	this.fringe = new Fringe();
 	this.solutionStep = [];
 
@@ -21,18 +21,16 @@ function Problem(initialNode, goalNode){
 
 		if(rootNode.state.isSolved()){
 			console.log('finished');
+			return 0;
 		}	
 
 		var counter = 0;
 		while(counter < 999999){
 			if(that.fringe.sequence.length == 0){
 				console.log('there is no solution');
-				return false;
+				return [];
 			}else {
 				var currentNode = that.fringe.getChild();
-				//console.log('current node:',currentNode);
-				//console.log('isSolved checked:',currentNode.state.isSolved());
-				//console.log('current state ');//currentNode.state.displayConsole();
 				if(currentNode.state.isSolved()){
 					console.log('solution found:');
 					that.solutionStep = currentNode.getStepsTaken();
@@ -43,19 +41,16 @@ function Problem(initialNode, goalNode){
 						current.state.move(that.solutionStep[index]);
 					}
 					console.log('Depth is :',currentNode.getDepth());
-					return true;
+					return Util.arrayCopy(that.solutionStep);
 				}
 				else{
-					//console.log('isSolved checked:',currentNode.state.isSolved());
 					var children = currentNode.getChildren();
-					//console.log('children are:',children);
 					that.fringe.putChildren(children);
 				}
 			}
 			counter++;
 		}
-	
-	return true;
+		return [];
 	}
 
 	//display the information
