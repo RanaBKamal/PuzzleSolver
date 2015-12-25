@@ -149,19 +149,19 @@ function Matrix(row,col){
 	this.randomize = function(){
 		initTiles();
 		var totInv = sumInversions();
-		//console.log("total Inversions:",totInv);
+		console.log("total Inversions:",totInv);
 		
 		if (!isSolvable(that.row,that.col,emptyTileRow())) {
 			if ((that.Data[0][0] == 0) || (that.Data[1][0] == 0)) {
 				that.swapValueAt(that.row - 1,that.row - 1,that.row - 2, that.row - 1);
 			}
 			else{
-				that.swapValueAt(0,0,0,1);
+				that.swapValueAt(0,0,1,0);
 			}
 		}
 
 		var totInv = sumInversions();
-		//console.log("total Inversions:",totInv);
+		console.log("total Inversions:",totInv);
 
 		//update the location of the empty position after ram=ndomization
 		for(var i = 0; i < that.row; i++){
@@ -210,7 +210,6 @@ function Matrix(row,col){
 				for (var j = 0; j < that.col; j++) {
 					totInversions += countInversions(i,j);
 				}
-				
 			}
 			return totInversions;
 		}
