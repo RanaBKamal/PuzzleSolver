@@ -128,9 +128,10 @@ function Matrix(row,col){
 		}
 
 	}
-
+	
 
 	// swap values at the specified position
+
 	this.swapValueAt = function(x1,y1,x2,y2){
 		var tempVal;
 		tempVal = that.Data[x1][y1];
@@ -182,7 +183,7 @@ function Matrix(row,col){
 			    var xj = j % that.row;
 			    var yj = Math.floor(j / that.row);
 			    that.swapValueAt(xi, yi, xj, yj);
-			    --i;
+			    i -= (that.row - 1);
 			}
 		}
 		//function to count the inversions of each tile

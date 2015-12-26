@@ -7,7 +7,6 @@ function UtilityFunctions(){
 		return copiedArray;
 	}
 	this.copyMatrix = function(oldMatrix){
-		//console.log(' I am tring to clone ');
 		//xconsole.log(oldMatrix);
 		var copiedMatrix =  new Matrix(oldMatrix.row,oldMatrix.col);
 		copiedMatrix.initialize();

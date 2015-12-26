@@ -8,7 +8,7 @@ function Problem(initialNode, goalNode){
 
 	var that = this;
 
-
+	var heuristic = new Heuristic(initialNode.state);
 	//for time calculation
 	var startTime;
 	var stopTime;
@@ -16,24 +16,20 @@ function Problem(initialNode, goalNode){
 	/* This is going to be a hell of a ride*/
 	this.solve = function(){
 		startTime = (new Date()).getTime();
-		var heuristic = new Heuristic();
-		var manhattanDist = 500;
-		var tempManhattanDist;
 		var rootNode = new SlideNode(that.initialNode.state);
 		var rootChildren = rootNode.getChildren();
-		console.log('Children Are:');
-		for(var index in rootChildren){
-			rootChildren[index].state.displayConsole();
-			tempManhattanDist = heuristic.calculateManhattanDistance(rootChildren[index].state);
-			that.fringe.putChild(rootChildren[index]);
-			if (tempManhattanDist < manhattanDist) {
-				console.log('i am checking');
-				manhattanDist = tempManhattanDist;
-				that.fringe.getChild();
-				that.fringe.putChild(rootChildren[index]);
-			}
+		for(var index = 0; index < rootChildren.length - 1; index++){
+			for (var i = (index + 1); i < rootChildren.length; i++) {
+				if (heuristic.costCurrentToGoal(rootChildren[index].state) < heuristic.costCurrentToGoal(rootChildren[i].state)){
+					var temp = rootChildren[index];
+					rootChildren[index] = rootChildren[i];
+					rootChildren[i] = temp;
+				}
+			}	
 		}
+		that.fringe.putChildren(rootChildren);
 
+		console.log('first step finished');
 		if(rootNode.state.isSolved()){
 			console.log('finished');
 		}else{	
@@ -44,9 +40,6 @@ function Problem(initialNode, goalNode){
 					return false;
 				}else {
 					var currentNode = that.fringe.getChild();
-					//console.log('current node:',currentNode);
-					//console.log('isSolved checked:',currentNode.state.isSolved());
-					//console.log('current state ');//currentNode.state.displayConsole();
 					if(currentNode.state.isSolved()){
 						console.log('solution found:');
 						that.solutionStep = currentNode.getStepsTaken();
@@ -62,20 +55,19 @@ function Problem(initialNode, goalNode){
 						return true;
 					}
 					else{
-						//console.log('isSolved checked:',currentNode.state.isSolved());
-						var children = currentNode.getChildren();
-						manhattanDist = 500;
-						//console.log('children are:',children);
-						for(var index in children){
-							//children[index].state.displayConsole();
-
-							tempManhattanDist = heuristic.calculateManhattanDistance(children[index].state);
-							that.fringe.putChild(children[index]);
-							if (tempManhattanDist < manhattanDist) {
-								manhattanDist = tempManhattanDist;
-								that.fringe.getChild();
-								that.fringe.putChild(children[index]);
+						console.log('after fail:::',counter,':',currentNode.depth);
+						if (currentNode.depth < 25) {
+							var children = currentNode.getChildren();
+							for(var index = 0; index < children.length - 1;index++){
+								for (var i = index + 1; i < children.length; i++) {
+									if (heuristic.costCurrentToGoal(children[index].state) < heuristic.costCurrentToGoal(children[i].state)){
+										var temp = children[index];
+										children[index] = children[i];
+										children[i] = temp;
+									}
+								}	
 							}
+							that.fringe.putChildren(children);
 						}
 					}
 				}
