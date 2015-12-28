@@ -31,16 +31,16 @@ function GameWindow(divId){
 
 	this.makeTitleBar = function(){
 		var titleDiv = document.createElement('DIV');
-		titleDiv.style.width = '796px';
-		titleDiv.style.height = '116px';
+		titleDiv.style.width = '800px';
+		titleDiv.style.height = '120px';
 		titleDiv.style['font-size'] = '34px';
 		titleDiv.style['line-height'] = '116px';
 		titleDiv.style.color = '#ff00ff';
 		titleDiv.style['text-align'] = 'center';
 		var t = document.createTextNode("IMAGE PUZZLE WITH AUTOSOLVER");
 		titleDiv.appendChild(t);
-		titleDiv.style.background = '#4dadef';
-		titleDiv.style['border'] = '2px solid blue';
+		titleDiv.style.background = '#7bcdef';
+		//titleDiv.style['border'] = '2px solid blue';
 		titleDiv.setAttribute('id',that.titleWrpId);
 		return titleDiv;
 	}
@@ -165,7 +165,7 @@ function GameWindow(divId){
 		var originalImageContainer = document.createElement('IMG');
 		originalImageContainer.style.width = '240px';
 		originalImageContainer.style.height = '240px';
-		originalImageContainer.src = 'images/home.png';
+		originalImageContainer.src = 'images/danphe.png';
 		return originalImageContainer;		
 	}
 

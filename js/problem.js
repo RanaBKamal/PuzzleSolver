@@ -23,6 +23,7 @@ function Problem(initialNode, goalNode){
 		iterationSize = 20;
 	}
 
+
 	function sortMatrix(a,b){
 		return a.state.manhattanDistance() < b.state.manhattanDistance();
 	}

@@ -36,7 +36,7 @@ function GamePlay(gameDivId){
 		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
 		if (currentPlayArea.gameState.row > 3) {
 			var randMoves = [ ];
-			for (var i = 0; i < 80; i++) {
+			for (var i = 0; i < 60; i++) {
 				randMoves.push(37 + Math.floor(Math.random() * 4));
 			}
 			for (var index in randMoves) {		

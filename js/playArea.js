@@ -35,7 +35,7 @@ function PlayArea(parent,canvasId){
 	this.initContext = function(){		//init the image source
 		that.context = that.gameCanvas.getContext("2d");
 		that.img = new Image();
-		that.img.src =   'images/home.png';
+		that.img.src =   'images/danphe.png';
 		that.img.addEventListener('load',that.displaySlides,false);	
 	}
 
