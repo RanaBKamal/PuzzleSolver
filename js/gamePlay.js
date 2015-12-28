@@ -27,19 +27,25 @@ function GamePlay(gameDivId){
 	var scoreBId = that.gameWindow.scoreBId;
 	var scoreB = document.getElementById(scoreBId);
 
+	var autoSolveId = that.gameWindow.autoSolveId;
+	var autoSolveB = document.getElementById(autoSolveId);
+	
 	playB.onclick = function(){		
 		currentPlayArea.initGameState(scaleBox.value);
 		currentPlayArea.displaySlides();
 		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
-		currentPlayArea.gameState.randomize();
-		setTimeout(currentPlayArea.displaySlides,1500);
-		var play = new Play(currentPlayArea,scoreB);
-	}
-
-	var autoSolveId = that.gameWindow.autoSolveId;
-	var autoSolveB = document.getElementById(autoSolveId);
-
-	autoSolveB.onclick = function(){
-		
+		if (currentPlayArea.gameState.row > 3) {
+			var randMoves = [ ];
+			for (var i = 0; i < 80; i++) {
+				randMoves.push(37 + Math.floor(Math.random() * 4));
+			}
+			for (var index in randMoves) {		
+				currentPlayArea.gameState.move(randMoves[index]);
+			}
+		}else{
+			currentPlayArea.gameState.randomize();	
+		}
+		setTimeout(currentPlayArea.displaySlides,500);
+		var play = new Play(currentPlayArea,scoreB,autoSolveB);
 	}
 }

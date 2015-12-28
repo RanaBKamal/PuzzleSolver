@@ -4,18 +4,23 @@
 	Upadated :Dec 20, 2015 
 ************************************/
 
-function Play(playArea,scoreB) {
+function Play(playArea,scoreB,autoSolveB) {
 	this.playArea = playArea;
+    this.scoreB = scoreB;
+    this.autoSolveB = autoSolveB;
 	var that = this;
 
+    //sliding the tiles
 	function moveSlide(keyCode){
 		that.playArea.gameState.move(keyCode);
 		that.playArea.displaySlides();
-        scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
+        that.scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
         if (that.playArea.gameState.isSolved()) {
         	that.displayWin();
         }
 	}
+
+    
 
 	//keyDown event handling
 	document.onkeydown = function(e) {
@@ -59,6 +64,32 @@ function Play(playArea,scoreB) {
 		gradient.addColorStop("1.0","red");
 		// Fill with gradient
 		that.playArea.context.fillStyle=gradient;
-		that.playArea.context.fillText("YOU WIN",80,300);
+		that.playArea.context.fillText("SOLVED !!!",80,300);
+    }
+
+    this.displayAutoSolve = function(keyCode){
+        that.playArea.gameState.move(keyCode);
+        that.playArea.displaySlides();
+        that.scoreB.innerHTML = 'Steps:' + that.playArea.gameState.stepsMoved;
+    }
+
+    //function to suto solve
+    that.autoSolveB.onclick = function(){
+        var initialNode = new SlideNode(that.playArea.gameState);
+        var goalState = new Matrix(that.playArea.gameState.row,that.playArea.gameState.row);
+        goalState.initialize();
+        var goalNode = new SlideNode(goalState);
+
+        var solution = new Problem(initialNode,goalNode);
+        var stepsToMove = solution.solve();
+        that.playArea.gameState.stepsMoved = 0;
+        var intervalId = setInterval(function(){
+            if (stepsToMove.length == 0) {
+                clearInterval(intervalId);
+            }
+            that.displayAutoSolve(stepsToMove[0]);
+            stepsToMove.shift();
+            console.log('i am executing');
+        },1000);
     }
 }

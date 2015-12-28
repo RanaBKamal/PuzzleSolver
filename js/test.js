@@ -18,5 +18,4 @@ function Puzzle(puzzleDimension){
 	var curProblem = new Problem(initialNode,finalNode);
 	curProblem.solve();
 
-
 }

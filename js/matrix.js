@@ -62,6 +62,34 @@ function Matrix(row,col){
 		}
 		return moves;
 	}
+	
+	//manhattan distance for the heuristic
+	this.manhattanDistance = function(){
+		var counter = 0;
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.col; j++) {
+				var value = that.Data[i][j];
+				if (value != 0) {
+					var expectedRow = Math.floor((value - 1) / that.row);
+					var expectedCol = Math.floor((value - 1) % that. row);
+					var difference = Math.abs(expectedRow - i) + Math.abs(expectedCol - j);
+					counter += difference;
+				}
+			}
+		}
+		/*	
+		//compute misplaced tiles
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.col; j++) {
+				var actualVal = i * that.row + j +1;
+				var value = that.Data[i][j];
+				if((value != actualVal) &&(value != 0)){
+					counter += 1;
+				}
+			}
+		}*/
+		return counter;
+	}
 
 	//function to make moves
 	this.makeMoves = function(moves){

@@ -9,6 +9,6 @@ function Fringe(){
 	}
 
 	this.getChild = function(){
-		return that.sequence.shift();
+		return that.sequence.pop();
 	}
 }
