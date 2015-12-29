@@ -1,4 +1,9 @@
+/************************************
+	Author:Kamal Bahadur Rana
+	Date Written: Dec 20, 2015 
+************************************/
 function Fringe(){
+	//this holds the node objects
 	this.sequence = [];
 	var that = this;
 	this.putChildren = function(children){

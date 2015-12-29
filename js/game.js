@@ -6,30 +6,36 @@
 
 function Game(gameDivId){
 	this.gameDivId = gameDivId;
-	//create the environment for game
-	this.gameWindow = new GameWindow(this.gameDivId);
-	this.gameWindow.initialize();
 	var that = this;
+
+	//create the environment for game
+	that.gameWindow = new GameWindow(that.gameDivId);
+	that.gameWindow.initialize();
 
 	//initialize the canvas play area
 	var currentPlayArea = new PlayArea(
 		document.getElementById(that.gameWindow.sliderWrpId),
 		that.gameWindow.canvasId);
+
 	currentPlayArea.initialize();
 
-	//taking Ids of the frameWindow elements
+	//level selector element
 	var scaleId = that.gameWindow.scaleId;
 	var scaleBox = document.getElementById(scaleId);
 
+	//play button element
 	var palyBId = that.gameWindow.playBId;
 	var playB = document.getElementById(palyBId);
 
+	//score board element
 	var scoreBId = that.gameWindow.scoreBId;
 	var scoreB = document.getElementById(scoreBId);
 
+	//auto solve element
 	var autoSolveId = that.gameWindow.autoSolveId;
 	var autoSolveB = document.getElementById(autoSolveId);
 	
+	//every new game starts here
 	playB.onclick = function(){		
 		currentPlayArea.initGameState(scaleBox.value);
 		currentPlayArea.displaySlides();
@@ -46,16 +52,17 @@ function Game(gameDivId){
 			currentPlayArea.gameState.randomize();	
 		}
 		setTimeout(currentPlayArea.displaySlides,500);
+		//jump to play
 		that.play(currentPlayArea,scoreB,autoSolveB);
 	}
 
-
+	//function that handles the playing
 	this.play = function(playArea,scoreB,autoSolveB){
+		
 		//keyDown event handling
 		document.onkeydown = function(e) {
 			moveSlide(e.keyCode);
 	    }
-
 
 	    //detect and apply the onclick event
 	    playArea.gameCanvas.onclick = function(e) {
@@ -80,7 +87,7 @@ function Game(gameDivId){
 	    	}	
 	    }
 
-	    //function to suto solve
+	    //function to auto solve
 	    autoSolveB.onclick = function(){
 	        var initialNode = new SlideNode(playArea.gameState);
 	        var goalState = new Matrix(playArea.gameState.row,playArea.gameState.row);
@@ -94,13 +101,14 @@ function Game(gameDivId){
 	        var intervalId = setInterval(function(){
 	            if (stepsToMove.length == 0) {
 	                clearInterval(intervalId);
+	                displayWin();
 	            }
 	            displayAutoSolve(stepsToMove[0]);
 	            stepsToMove.shift();
-	            console.log('i am executing');
 	        },1000);
 	    }
 
+	    //function to move the one slide
 		function moveSlide(keyCode){
 			playArea.gameState.move(keyCode);
 			playArea.displaySlides();
@@ -110,20 +118,18 @@ function Game(gameDivId){
 	        }
 		}
 
-
-		 //function to display win window
+		 //function to display solved window
 	    function displayWin(){
 	    	playArea.context.font="72px Verdana";
-			// Create gradient
 			var gradient=playArea.context.createLinearGradient(0,0,400,0);
 			gradient.addColorStop("0","magenta");
 			gradient.addColorStop("0.5","blue");
 			gradient.addColorStop("1.0","red");
-			// Fill with gradient
 			playArea.context.fillStyle=gradient;
 			playArea.context.fillText("SOLVED !!!",80,300);
 	    }
 
+	    //auto solve display 
 	    function displayAutoSolve(keyCode){
 	        playArea.gameState.move(keyCode);
 	        playArea.displaySlides();

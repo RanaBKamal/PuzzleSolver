@@ -21,7 +21,6 @@ function PlayArea(parent,canvasId){
 	this.initialize = function(){
 		var gameCanvas = document.createElement('CANVAS');
 		that.gameCanvas = gameCanvas;
-
 		that.gameCanvas.setAttribute('id',canvasId);
 		that.gameCanvas.width = this.widthCanvas.toString();
 		that.gameCanvas.height = this.heightCanvas.toString();
@@ -30,9 +29,8 @@ function PlayArea(parent,canvasId){
 		that.initContext();
 	}
 
-
 	//function to initialize the context and image source
-	this.initContext = function(){		//init the image source
+	this.initContext = function(){
 		that.context = that.gameCanvas.getContext("2d");
 		that.img = new Image();
 		that.img.src =   'images/danphe.png';
@@ -51,6 +49,7 @@ function PlayArea(parent,canvasId){
   		var clearence = 1;
   		that.context.clearRect ( 0 , 0 , that.widthCanvas , that.heightCanvas );
   		var tileSize = that.widthCanvas/that.gameDimension;
+  		
   		for (var i = 0; i < that.gameDimension; i++) {
   			for (var j = 0; j < that.gameDimension; j++) {
   				var CurrentNumber = that.gameState.Data[i][j];
@@ -59,6 +58,7 @@ function PlayArea(parent,canvasId){
 	  				var ClipCol = Math.floor((CurrentNumber - 1) / that.gameDimension);
 	  				var Clipx = ClipRow * tileSize;
 	  				var Clipy = ClipCol * tileSize;
+
 	  				that.context.drawImage(
 	  				   that.img, Clipx,Clipy, tileSize, tileSize,
 	                   j * tileSize, i * tileSize, tileSize-clearence, tileSize-clearence

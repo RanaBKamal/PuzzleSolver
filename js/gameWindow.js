@@ -1,7 +1,7 @@
 /************************************
 	Author:Kamal Bahadur Rana
 	Date Written: Dec 16, 2015
-	Updated: Dec 20,2015 
+	Updated: Dec 29,2015 
 ************************************/
 function GameWindow(divId){
 	this.divId = divId;
@@ -16,9 +16,8 @@ function GameWindow(divId){
 	this.autoSolveId = divId + 'autoSolve';
 
 	var that = this;
-  
+  	//main wrapper window
 	this.initialize = function(){
-		//main wrapper window
 		var mainWindowWrapper = document.getElementById(that.divId);
 		mainWindowWrapper.style.width = '800px';
 		mainWindowWrapper.style.height = '600px';
@@ -29,6 +28,7 @@ function GameWindow(divId){
 		mainWindowWrapper.appendChild(that.makeBody());
 	}
 
+	//titlebar maker
 	this.makeTitleBar = function(){
 		var titleDiv = document.createElement('DIV');
 		titleDiv.style.width = '800px';
@@ -40,8 +40,8 @@ function GameWindow(divId){
 		return titleDiv;
 	}
 
+	//lower body wrapper 
 	this.makeBody = function(){
-		//lower wrapper
 		var bodyWrapper = document.createElement('DIV');
 		bodyWrapper.style.width = '800px';
 		bodyWrapper.style.height = '480px';
@@ -54,8 +54,8 @@ function GameWindow(divId){
 		return bodyWrapper;
 	}
 	
+	//slider-puzzle wrapper
 	this.makeSliderWrapper = function(){
-		//slider-puzzle wrapper
 		var sliderWrapper = document.createElement('DIV');
 		sliderWrapper.style.width = '480px';
 		sliderWrapper.style.height = '480px';
@@ -66,9 +66,8 @@ function GameWindow(divId){
 		return sliderWrapper;
 	}
 
-	
-	this.makeControlWrapper = function(){
-		//right control wrapper
+	//right control wrapper
+	this.makeControlWrapper = function(){		
 		var controlWrapper = document.createElement('DIV');
 		controlWrapper.setAttribute('id',that.bodyWrpId);
 		controlWrapper.style.width = '240px';
@@ -85,16 +84,14 @@ function GameWindow(divId){
 		return controlWrapper;
 	}
 	
-	//control selector
+	//level control selector
 	this.makeControlSelector = function(){
-		//level selector container
 		var levelSelectorContainer = document.createElement('DIV');
 		levelSelectorContainer.style.width = '240px';
 		levelSelectorContainer.style.height = '80px';
 		levelSelectorContainer.style.float = 'left';
 		levelSelectorContainer.style['line-height'] = '40px';
 		levelSelectorContainer.style.background = '#abcdef';
-		//create level selector form here
 		levelSelectorContainer.innerHTML = 'Select Level <br>'+
 		'<form>'+ 
 			'<label>Easy</label>'+
@@ -108,7 +105,6 @@ function GameWindow(divId){
 
 	//play button
 	this.makePlayButton = function(){
-		//level selector container
 		var playButtonContainer = document.createElement('BUTTON');
 		playButtonContainer.setAttribute('id',that.playBId);
 		playButtonContainer.style.width = '240px';
@@ -125,7 +121,6 @@ function GameWindow(divId){
 
 	//score board 
 	this.makeScoreBoard = function(){
-		//level selector container
 		var scoreContainer = document.createElement('SPAN');
 		scoreContainer.setAttribute('id',that.scoreBId);
 		scoreContainer.style.width = '240px';
@@ -138,9 +133,8 @@ function GameWindow(divId){
 		return scoreContainer;
 	}
 
-	//score board 
+	//auto solve button
 	this.makeAutoSolveButton = function(){
-		//level selector container
 		var solveButtonContainer = document.createElement('BUTTON');
 		solveButtonContainer.setAttribute('id',that.autoSolveId);
 		solveButtonContainer.style.width = '240px';
@@ -156,6 +150,7 @@ function GameWindow(divId){
 		return solveButtonContainer;
 	}
 
+	//original image display
 	this.makeOriginalImage = function(){
 		var originalImageContainer = document.createElement('IMG');
 		originalImageContainer.style.width = '240px';
