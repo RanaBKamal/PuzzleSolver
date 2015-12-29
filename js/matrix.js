@@ -1,10 +1,8 @@
 /************************************
 	Author:Kamal Bahadur Rana
 	Date Written: Dec 16, 2015 
-	Updated Date: Dec 18, 2015
 	Updated Date: Dec 20, 2015
 ************************************/
-
 
 function Matrix(row,col){
 	
@@ -12,12 +10,14 @@ function Matrix(row,col){
 		LEFT: 37, 
 		RIGHT: 39, 
 		UP: 38,
-		DOWN:40
+		DOWN:40,
+		INVALID: -15
 	});
 
 	this.stepsMoved = 0;
 	this.row = row;
 	this.col = col;
+	//console.log(' rows',this.row);
 	
 	this.emptyLocation = new Object();
 	
@@ -38,7 +38,6 @@ function Matrix(row,col){
 		that.Data[that.row - 1][that.col - 1] = 0;
 		that.emptyLocation.x = that.row-1;
 		that.emptyLocation.y = that.col-1;
-		console.log('empyt locations :',this.emptyLocation.x,' ',this.emptyLocation.y);
 	}
 
 	//function to get all moves
@@ -63,16 +62,88 @@ function Matrix(row,col){
 		}
 		return moves;
 	}
-
-	//function to get all moves
-	this.makeAllMoves = function(moves){
-		var children = [];
-		for(var move in moves){
-			var current = that;
-			
+	
+	//manhattan distance for the heuristic
+	this.manhattanDistance = function(){
+		var counter = 0;
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.col; j++) {
+				var value = that.Data[i][j];
+				if (value != 0) {
+					var expectedRow = Math.floor((value - 1) / that.row);
+					var expectedCol = Math.floor((value - 1) % that. row);
+					var difference = Math.abs(expectedRow - i) + Math.abs(expectedCol - j);
+					counter += difference;
+				}
+			}
 		}
+
+		/*
+		var val = that.Data[0][0];
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.row; j++) {
+				if(val == that.Data[i][j] - 1){
+					counter = counter + 2;
+				}
+				val = that.Data[i][j];
+			}
+		}
+
+		var val = that.Data[0][0];
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.row; j++) {
+				if(val == that.Data[j][i] - that.row){
+					counter = counter + 2;
+				}
+				val = that.Data[j][i];
+			}
+		}
+		*/
+		/*	
+		//compute misplaced tiles
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.col; j++) {
+				var actualVal = i * that.row + j +1;
+				var value = that.Data[i][j];
+				if((value != actualVal) &&(value != 0)){
+					counter += 1;
+				}
+			}
+		}*/
+		return counter;
 	}
 
+	//function to make moves
+	this.makeMoves = function(moves){
+		var children = [];
+		for(var move in moves){
+			var current = Util.copyMatrix(that);
+			current.move(moves[move]);
+			children.push(current);
+		}
+		return children;
+	}
+
+	this.makeAllMoves = function(){
+		var moves = that.getAllMoves();
+		return that.makeMoves(moves);
+	}
+
+	this.makeOneMove = function(currentMove){
+		var child = Util.copyMatrix(that);
+		child.move(currentMove);
+		return child;
+	}
+
+	this.displayConsole = function(){
+		for (var i = 0; i < that.row; i++) {
+			var currentLine = ' ';
+			for (var j = 0; j <that.col; j++) {
+				currentLine += that.Data[i][j] + ' ';
+			}
+			console.log(currentLine);
+		}
+	}
 	this.move = function(direction){
 		switch(direction){
 			case that.directionEnum.UP:
@@ -108,6 +179,7 @@ function Matrix(row,col){
 
 	}
 
+
 	// swap values at the specified position
 	this.swapValueAt = function(x1,y1,x2,y2){
 		var tempVal;
@@ -115,19 +187,13 @@ function Matrix(row,col){
 		that.Data[x1][y1] = that.Data[x2][y2];
 		that.Data[x2][y2] = tempVal;
 	}
-	this.randomizeTilesPra = function(){
-		var Moves = [40,38,37,39,40,38,38,39];
-		for(var i = 0; i < Moves.length; i++){
-			that.move(Moves[i]);
-		}
 
-	}
 	
 	//randomization function
-	this.randomizeTiles = function(){
+	this.randomize = function(){
 		initTiles();
 		var totInv = sumInversions();
-		console.log("total Inversions:",totInv);
+		//console.log("total Inversions:",totInv);
 		
 		if (!isSolvable(that.row,that.col,emptyTileRow())) {
 			if ((that.Data[0][0] == 0) || (that.Data[1][0] == 0)) {
@@ -139,7 +205,7 @@ function Matrix(row,col){
 		}
 
 		var totInv = sumInversions();
-		console.log("total Inversions:",totInv);
+		//console.log("total Inversions:",totInv);
 
 		//update the location of the empty position after ram=ndomization
 		for(var i = 0; i < that.row; i++){

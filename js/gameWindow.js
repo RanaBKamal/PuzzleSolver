@@ -31,16 +31,11 @@ function GameWindow(divId){
 
 	this.makeTitleBar = function(){
 		var titleDiv = document.createElement('DIV');
-		titleDiv.style.width = '796px';
-		titleDiv.style.height = '116px';
+		titleDiv.style.width = '800px';
+		titleDiv.style.height = '120px';
 		titleDiv.style['font-size'] = '34px';
 		titleDiv.style['line-height'] = '116px';
-		titleDiv.style.color = '#ff00ff';
-		titleDiv.style['text-align'] = 'center';
-		var t = document.createTextNode("IMAGE PUZZLE WITH AUTOSOLVER");
-		titleDiv.appendChild(t);
-		titleDiv.style.background = '#4dadef';
-		titleDiv.style['border'] = '2px solid blue';
+		titleDiv.style.backgroundImage = 'url("images/title.png")';
 		titleDiv.setAttribute('id',that.titleWrpId);
 		return titleDiv;
 	}
@@ -76,8 +71,10 @@ function GameWindow(divId){
 		//right control wrapper
 		var controlWrapper = document.createElement('DIV');
 		controlWrapper.setAttribute('id',that.bodyWrpId);
-		controlWrapper.style.width = '320px';
+		controlWrapper.style.width = '240px';
 		controlWrapper.style.height = '480px';
+		controlWrapper.style['padding-left'] = '40px';
+		controlWrapper.style['padding-right'] = '40px';
 		controlWrapper.style.background = '#efefef';
 		controlWrapper.style.float = 'left';
 		controlWrapper.appendChild(that.makeControlSelector());
@@ -92,7 +89,7 @@ function GameWindow(divId){
 	this.makeControlSelector = function(){
 		//level selector container
 		var levelSelectorContainer = document.createElement('DIV');
-		levelSelectorContainer.style.width = '320px';
+		levelSelectorContainer.style.width = '240px';
 		levelSelectorContainer.style.height = '80px';
 		levelSelectorContainer.style.float = 'left';
 		levelSelectorContainer.style['line-height'] = '40px';
@@ -101,7 +98,7 @@ function GameWindow(divId){
 		levelSelectorContainer.innerHTML = 'Select Level <br>'+
 		'<form>'+ 
 			'<label>Easy</label>'+
-			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="10" step="1">'+
+			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="6" step="1">'+
 			'<label>Hard</label>'+
 		'</form>';
 		levelSelectorContainer.style.color = 'purple';
@@ -114,7 +111,7 @@ function GameWindow(divId){
 		//level selector container
 		var playButtonContainer = document.createElement('BUTTON');
 		playButtonContainer.setAttribute('id',that.playBId);
-		playButtonContainer.style.width = '320px';
+		playButtonContainer.style.width = '240px';
 		playButtonContainer.style.height = '40px';
 		playButtonContainer.style.float = 'left';
 		playButtonContainer.style['line-height'] = '40px';
@@ -131,7 +128,7 @@ function GameWindow(divId){
 		//level selector container
 		var scoreContainer = document.createElement('SPAN');
 		scoreContainer.setAttribute('id',that.scoreBId);
-		scoreContainer.style.width = '320px';
+		scoreContainer.style.width = '240px';
 		scoreContainer.style.height = '60px';
 		scoreContainer.style.float = 'left';
 		scoreContainer.style['line-height'] = '60px';
@@ -146,7 +143,7 @@ function GameWindow(divId){
 		//level selector container
 		var solveButtonContainer = document.createElement('BUTTON');
 		solveButtonContainer.setAttribute('id',that.autoSolveId);
-		solveButtonContainer.style.width = '320px';
+		solveButtonContainer.style.width = '240px';
 		solveButtonContainer.style.height = '60px';
 		solveButtonContainer.style.float = 'left';
 		solveButtonContainer.style['line-height'] = '60px';
@@ -163,9 +160,7 @@ function GameWindow(divId){
 		var originalImageContainer = document.createElement('IMG');
 		originalImageContainer.style.width = '240px';
 		originalImageContainer.style.height = '240px';
-		originalImageContainer.src = 'images/elephant.png';
-		originalImageContainer.style['padding-left'] = '40px';
-		originalImageContainer.style['padding-right'] = '40px';
+		originalImageContainer.src = 'images/danphe.png';
 		return originalImageContainer;		
 	}
 
