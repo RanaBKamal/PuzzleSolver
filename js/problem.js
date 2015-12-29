@@ -11,19 +11,20 @@ function Problem(initialNode, goalNode){
 	var startTime;
 	var stopTime;
 
-	var threshold = 10;
-	var iterationSize = 10;
-	
-	if ((that.initialNode.state.row == 2 )||(that.initialNode.state.row == 3)) {
+	var threshold;
+	var iterationSize;
+	if(that.initialNode.state.row == 2){
+		threshold = 2;
+		iterationSize = 2;
+	}
+	else if(that.initialNode.state.row == 3){
 		threshold = 12;
 		iterationSize = 10;
 	}
 	else{
-		threshold = 0;
-		iterationSize = 20;
+		threshold = 30;
+		iterationSize =15;
 	}
-
-
 	function sortMatrix(a,b){
 		return a.state.manhattanDistance() < b.state.manhattanDistance();
 	}
@@ -35,7 +36,6 @@ function Problem(initialNode, goalNode){
 		if(rootNode.state.isSolved()){
 			console.log('finished');
 		}else{	
-			var counter = 0;
 			while(1){
 				if(that.fringe.sequence.length == 0){
 					console.log('Iteration');
@@ -76,7 +76,6 @@ function Problem(initialNode, goalNode){
 						}
 					}
 				}
-				//counter++;
 			}
 		}
 	return true;

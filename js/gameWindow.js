@@ -35,12 +35,7 @@ function GameWindow(divId){
 		titleDiv.style.height = '120px';
 		titleDiv.style['font-size'] = '34px';
 		titleDiv.style['line-height'] = '116px';
-		titleDiv.style.color = '#ff00ff';
-		titleDiv.style['text-align'] = 'center';
-		var t = document.createTextNode("IMAGE PUZZLE WITH AUTOSOLVER");
-		titleDiv.appendChild(t);
-		titleDiv.style.background = '#7bcdef';
-		//titleDiv.style['border'] = '2px solid blue';
+		titleDiv.style.backgroundImage = 'url("images/title.png")';
 		titleDiv.setAttribute('id',that.titleWrpId);
 		return titleDiv;
 	}

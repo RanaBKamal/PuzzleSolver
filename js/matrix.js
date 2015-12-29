@@ -77,6 +77,28 @@ function Matrix(row,col){
 				}
 			}
 		}
+
+		/*
+		var val = that.Data[0][0];
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.row; j++) {
+				if(val == that.Data[i][j] - 1){
+					counter = counter + 2;
+				}
+				val = that.Data[i][j];
+			}
+		}
+
+		var val = that.Data[0][0];
+		for (var i = 0; i < that.row; i++) {
+			for (var j = 0; j < that.row; j++) {
+				if(val == that.Data[j][i] - that.row){
+					counter = counter + 2;
+				}
+				val = that.Data[j][i];
+			}
+		}
+		*/
 		/*	
 		//compute misplaced tiles
 		for (var i = 0; i < that.row; i++) {
@@ -165,13 +187,7 @@ function Matrix(row,col){
 		that.Data[x1][y1] = that.Data[x2][y2];
 		that.Data[x2][y2] = tempVal;
 	}
-	this.randomizeTilesPra = function(){
-		var Moves = [40,38,37,39,40,38,38,39];
-		for(var i = 0; i < Moves.length; i++){
-			that.move(Moves[i]);
-		}
 
-	}
 	
 	//randomization function
 	this.randomize = function(){
