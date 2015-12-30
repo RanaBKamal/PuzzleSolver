@@ -74,7 +74,7 @@ function GameWindow(divId){
 		controlWrapper.style.height = '480px';
 		controlWrapper.style['padding-left'] = '40px';
 		controlWrapper.style['padding-right'] = '40px';
-		controlWrapper.style.background = '#efefef';
+		controlWrapper.style.background = '#afefef';
 		controlWrapper.style.float = 'left';
 		controlWrapper.appendChild(that.makeControlSelector());
 		controlWrapper.appendChild(that.makePlayButton());
@@ -92,13 +92,14 @@ function GameWindow(divId){
 		levelSelectorContainer.style.float = 'left';
 		levelSelectorContainer.style['line-height'] = '40px';
 		levelSelectorContainer.style.background = '#abcdef';
+		levelSelectorContainer.style.fontFamily = 'verdana';
 		levelSelectorContainer.innerHTML = 'Select Level <br>'+
 		'<form>'+ 
 			'<label>Easy</label>'+
-			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="6" step="1">'+
+			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="4" step="1">'+
 			'<label>Hard</label>'+
 		'</form>';
-		levelSelectorContainer.style.color = 'purple';
+		levelSelectorContainer.style.color = '#123456';
 		levelSelectorContainer.style['text-align'] = 'center';	
 		return levelSelectorContainer;
 	}
@@ -111,10 +112,7 @@ function GameWindow(divId){
 		playButtonContainer.style.height = '40px';
 		playButtonContainer.style.float = 'left';
 		playButtonContainer.style['line-height'] = '40px';
-		playButtonContainer.style.background = '#cdadef';
-		var t = document.createTextNode("PLAY");
-		playButtonContainer.appendChild(t);
-		playButtonContainer.style.color = 'purple';
+		playButtonContainer.style.backgroundImage = 'url("images/play.png")';
 		playButtonContainer.style['text-align'] = 'center';
 		return playButtonContainer;
 	}
@@ -124,11 +122,14 @@ function GameWindow(divId){
 		var scoreContainer = document.createElement('SPAN');
 		scoreContainer.setAttribute('id',that.scoreBId);
 		scoreContainer.style.width = '240px';
-		scoreContainer.style.height = '60px';
+		scoreContainer.style.height = '40px';
 		scoreContainer.style.float = 'left';
-		scoreContainer.style['line-height'] = '60px';
+		scoreContainer.style.fontFamily = 'verdana';
+		scoreContainer.style.fontWeight = 'bold';
+		scoreContainer.style.fontSize = '24px';
+		scoreContainer.style['line-height'] = '40px';
 		scoreContainer.style.background = '#7dadef';
-		scoreContainer.style.color = 'purple';
+		scoreContainer.style.color = '#123456';
 		scoreContainer.style['text-align'] = 'center';
 		return scoreContainer;
 	}
@@ -138,14 +139,10 @@ function GameWindow(divId){
 		var solveButtonContainer = document.createElement('BUTTON');
 		solveButtonContainer.setAttribute('id',that.autoSolveId);
 		solveButtonContainer.style.width = '240px';
-		solveButtonContainer.style.height = '60px';
+		solveButtonContainer.style.height = '40px';
 		solveButtonContainer.style.float = 'left';
-		solveButtonContainer.style['line-height'] = '60px';
-		solveButtonContainer.style.background = '#7dadef';
-		solveButtonContainer.style['font-weight'] = 'bold';
-		var t = document.createTextNode("AUTO SOLVE");
-		solveButtonContainer.appendChild(t);
-		solveButtonContainer.style.color = 'purple';
+		solveButtonContainer.style['line-height'] = '40px';
+		solveButtonContainer.style.backgroundImage = 'url("images/autosolve.png")';
 		solveButtonContainer.style['text-align'] = 'center';
 		return solveButtonContainer;
 	}
@@ -155,6 +152,8 @@ function GameWindow(divId){
 		var originalImageContainer = document.createElement('IMG');
 		originalImageContainer.style.width = '240px';
 		originalImageContainer.style.height = '240px';
+		originalImageContainer.style.paddingTop = '20px';
+		originalImageContainer.style.paddingBottom = '20px';
 		originalImageContainer.src = 'images/danphe.png';
 		return originalImageContainer;		
 	}
