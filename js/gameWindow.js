@@ -1,7 +1,7 @@
 /************************************
 	Author:Kamal Bahadur Rana
 	Date Written: Dec 16, 2015
-	Updated: Dec 20,2015 
+	Updated: Dec 29,2015 
 ************************************/
 function GameWindow(divId){
 	this.divId = divId;
@@ -16,9 +16,8 @@ function GameWindow(divId){
 	this.autoSolveId = divId + 'autoSolve';
 
 	var that = this;
-  
+  	//main wrapper window
 	this.initialize = function(){
-		//main wrapper window
 		var mainWindowWrapper = document.getElementById(that.divId);
 		mainWindowWrapper.style.width = '800px';
 		mainWindowWrapper.style.height = '600px';
@@ -29,6 +28,7 @@ function GameWindow(divId){
 		mainWindowWrapper.appendChild(that.makeBody());
 	}
 
+	//titlebar maker
 	this.makeTitleBar = function(){
 		var titleDiv = document.createElement('DIV');
 		titleDiv.style.width = '800px';
@@ -40,8 +40,8 @@ function GameWindow(divId){
 		return titleDiv;
 	}
 
+	//lower body wrapper 
 	this.makeBody = function(){
-		//lower wrapper
 		var bodyWrapper = document.createElement('DIV');
 		bodyWrapper.style.width = '800px';
 		bodyWrapper.style.height = '480px';
@@ -54,8 +54,8 @@ function GameWindow(divId){
 		return bodyWrapper;
 	}
 	
+	//slider-puzzle wrapper
 	this.makeSliderWrapper = function(){
-		//slider-puzzle wrapper
 		var sliderWrapper = document.createElement('DIV');
 		sliderWrapper.style.width = '480px';
 		sliderWrapper.style.height = '480px';
@@ -66,16 +66,15 @@ function GameWindow(divId){
 		return sliderWrapper;
 	}
 
-	
-	this.makeControlWrapper = function(){
-		//right control wrapper
+	//right control wrapper
+	this.makeControlWrapper = function(){		
 		var controlWrapper = document.createElement('DIV');
 		controlWrapper.setAttribute('id',that.bodyWrpId);
 		controlWrapper.style.width = '240px';
 		controlWrapper.style.height = '480px';
 		controlWrapper.style['padding-left'] = '40px';
 		controlWrapper.style['padding-right'] = '40px';
-		controlWrapper.style.background = '#efefef';
+		controlWrapper.style.background = '#afefef';
 		controlWrapper.style.float = 'left';
 		controlWrapper.appendChild(that.makeControlSelector());
 		controlWrapper.appendChild(that.makePlayButton());
@@ -85,81 +84,76 @@ function GameWindow(divId){
 		return controlWrapper;
 	}
 	
-	//control selector
+	//level control selector
 	this.makeControlSelector = function(){
-		//level selector container
 		var levelSelectorContainer = document.createElement('DIV');
 		levelSelectorContainer.style.width = '240px';
 		levelSelectorContainer.style.height = '80px';
 		levelSelectorContainer.style.float = 'left';
 		levelSelectorContainer.style['line-height'] = '40px';
 		levelSelectorContainer.style.background = '#abcdef';
-		//create level selector form here
+		levelSelectorContainer.style.fontFamily = 'verdana';
 		levelSelectorContainer.innerHTML = 'Select Level <br>'+
 		'<form>'+ 
 			'<label>Easy</label>'+
-			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="6" step="1">'+
+			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="4" step="1">'+
 			'<label>Hard</label>'+
 		'</form>';
-		levelSelectorContainer.style.color = 'purple';
+		levelSelectorContainer.style.color = '#123456';
 		levelSelectorContainer.style['text-align'] = 'center';	
 		return levelSelectorContainer;
 	}
 
 	//play button
 	this.makePlayButton = function(){
-		//level selector container
 		var playButtonContainer = document.createElement('BUTTON');
 		playButtonContainer.setAttribute('id',that.playBId);
 		playButtonContainer.style.width = '240px';
 		playButtonContainer.style.height = '40px';
 		playButtonContainer.style.float = 'left';
 		playButtonContainer.style['line-height'] = '40px';
-		playButtonContainer.style.background = '#cdadef';
-		var t = document.createTextNode("PLAY");
-		playButtonContainer.appendChild(t);
-		playButtonContainer.style.color = 'purple';
+		playButtonContainer.style.backgroundImage = 'url("images/play.png")';
 		playButtonContainer.style['text-align'] = 'center';
 		return playButtonContainer;
 	}
 
 	//score board 
 	this.makeScoreBoard = function(){
-		//level selector container
 		var scoreContainer = document.createElement('SPAN');
 		scoreContainer.setAttribute('id',that.scoreBId);
 		scoreContainer.style.width = '240px';
-		scoreContainer.style.height = '60px';
+		scoreContainer.style.height = '40px';
 		scoreContainer.style.float = 'left';
-		scoreContainer.style['line-height'] = '60px';
+		scoreContainer.style.fontFamily = 'verdana';
+		scoreContainer.style.fontWeight = 'bold';
+		scoreContainer.style.fontSize = '24px';
+		scoreContainer.style['line-height'] = '40px';
 		scoreContainer.style.background = '#7dadef';
-		scoreContainer.style.color = 'purple';
+		scoreContainer.style.color = '#123456';
 		scoreContainer.style['text-align'] = 'center';
 		return scoreContainer;
 	}
 
-	//score board 
+	//auto solve button
 	this.makeAutoSolveButton = function(){
-		//level selector container
 		var solveButtonContainer = document.createElement('BUTTON');
 		solveButtonContainer.setAttribute('id',that.autoSolveId);
 		solveButtonContainer.style.width = '240px';
-		solveButtonContainer.style.height = '60px';
+		solveButtonContainer.style.height = '40px';
 		solveButtonContainer.style.float = 'left';
-		solveButtonContainer.style['line-height'] = '60px';
-		solveButtonContainer.style.background = '#7dadef';
-		solveButtonContainer.style['font-weight'] = 'bold';
-		var t = document.createTextNode("AUTO SOLVE");
-		solveButtonContainer.appendChild(t);
-		solveButtonContainer.style.color = 'purple';
+		solveButtonContainer.style['line-height'] = '40px';
+		solveButtonContainer.style.backgroundImage = 'url("images/autosolve.png")';
 		solveButtonContainer.style['text-align'] = 'center';
 		return solveButtonContainer;
 	}
 
+	//original image display
 	this.makeOriginalImage = function(){
 		var originalImageContainer = document.createElement('IMG');
 		originalImageContainer.style.width = '240px';
 		originalImageContainer.style.height = '240px';
+		originalImageContainer.style.paddingTop = '20px';
+		originalImageContainer.style.paddingBottom = '20px';
 		originalImageContainer.src = 'images/danphe.png';
 		return originalImageContainer;		
 	}
