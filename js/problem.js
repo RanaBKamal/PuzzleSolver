@@ -33,12 +33,13 @@ function Problem(initialNode, goalNode){
 
 	/*here goes the IDA* algorithm*/
 	this.solve = function(){
+		var limitCounter = 0;
 		startTime = (new Date()).getTime();
 		var rootNode = new SlideNode(that.initialNode.state);
 		if(rootNode.state.isSolved()){
 			console.log('already solved state');
 		}else{	
-			while(1){
+			while(limitCounter < 999999){
 				if(that.fringe.sequence.length == 0){
 					console.log('Iteration');
 					var rootChildren = rootNode.getChildren();
@@ -78,6 +79,7 @@ function Problem(initialNode, goalNode){
 						}
 					}
 				}
+				limitCounter++;
 			}
 		}
 	return false;
