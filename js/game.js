@@ -96,16 +96,21 @@ function Game(gameDivId){
 
 	        var solution = new Problem(initialNode,goalNode);
 	        var stepsToMove = solution.solve();
-	        playArea.gameState.stepsMoved = 0;
-	        
-	        var intervalId = setInterval(function(){
-	            if (stepsToMove.length == 0) {
-	                clearInterval(intervalId);
-	                displayWin();
-	            }
-	            displayAutoSolve(stepsToMove[0]);
-	            stepsToMove.shift();
-	        },1000);
+	        if (stepsToMove == false) {
+	        	scoreB.innerHTML = 'sorry try next!';
+	        	console.log('takes long try another!!');
+	        }
+	        else{
+	        	playArea.gameState.stepsMoved = 0;
+		        var intervalId = setInterval(function(){
+		            if (stepsToMove.length == 0) {
+		                clearInterval(intervalId);
+		                displayWin();
+		            }
+		            displayAutoSolve(stepsToMove[0]);
+		            stepsToMove.shift();
+		        },1000);
+	        }	        
 	    }
 
 	    //function to move the one slide
