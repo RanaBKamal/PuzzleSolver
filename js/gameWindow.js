@@ -14,6 +14,7 @@ function GameWindow(divId){
 	this.playBId = divId + 'playB';
 	this.scoreBId = divId + 'ScoreB';
 	this.autoSolveId = divId + 'autoSolve';
+	this.frontBlockerId = divId + 'frontBlocker';
 
 	var that = this;
   	//main wrapper window
@@ -59,11 +60,23 @@ function GameWindow(divId){
 		var sliderWrapper = document.createElement('DIV');
 		sliderWrapper.style.width = '480px';
 		sliderWrapper.style.height = '480px';
-		sliderWrapper.style.background = '#4f0000';
+		sliderWrapper.style.background = '#363636';
 		sliderWrapper.style['padding'] = '0';
 		sliderWrapper.style['float'] = 'left';
 		sliderWrapper.setAttribute('id',that.sliderWrpId);
+		sliderWrapper.appendChild(that.makeFrontBlocker());
 		return sliderWrapper;
+	}
+
+	// function to make blocker over playArea
+	this.makeFrontBlocker = function(){
+		var frontBlocker = document.createElement("DIV");
+		frontBlocker.setAttribute('id',that.frontBlockerId);
+		frontBlocker.style.width = '480px';
+		frontBlocker.style.height = '480px';
+		frontBlocker.style['position'] = 'absolute';
+		frontBlocker.style['z-index'] = '999';
+		return frontBlocker;
 	}
 
 	//right control wrapper
@@ -71,10 +84,11 @@ function GameWindow(divId){
 		var controlWrapper = document.createElement('DIV');
 		controlWrapper.setAttribute('id',that.bodyWrpId);
 		controlWrapper.style.width = '240px';
-		controlWrapper.style.height = '480px';
+		controlWrapper.style.height = '470px';
 		controlWrapper.style['padding-left'] = '40px';
 		controlWrapper.style['padding-right'] = '40px';
-		controlWrapper.style.background = '#afefef';
+		controlWrapper.style['padding-top'] = '10px';
+		controlWrapper.style.background = '#969696';
 		controlWrapper.style.float = 'left';
 		controlWrapper.appendChild(that.makeControlSelector());
 		controlWrapper.appendChild(that.makePlayButton());
@@ -91,13 +105,12 @@ function GameWindow(divId){
 		levelSelectorContainer.style.height = '80px';
 		levelSelectorContainer.style.float = 'left';
 		levelSelectorContainer.style['line-height'] = '40px';
+		levelSelectorContainer.style['font-weight'] = 'bold';
 		levelSelectorContainer.style.background = '#abcdef';
 		levelSelectorContainer.style.fontFamily = 'verdana';
 		levelSelectorContainer.innerHTML = 'Select Level <br>'+
 		'<form>'+ 
-			'<label>Easy</label>'+
-			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="4" step="1">'+
-			'<label>Hard</label>'+
+			'<input type="range" id="'+that.scaleId+'" value="2" min="2" max="4" step="1">'
 		'</form>';
 		levelSelectorContainer.style.color = '#123456';
 		levelSelectorContainer.style['text-align'] = 'center';	
@@ -110,9 +123,10 @@ function GameWindow(divId){
 		playButtonContainer.setAttribute('id',that.playBId);
 		playButtonContainer.style.width = '240px';
 		playButtonContainer.style.height = '40px';
+		playButtonContainer.style['cursor'] = 'pointer';
 		playButtonContainer.style.float = 'left';
 		playButtonContainer.style['line-height'] = '40px';
-		playButtonContainer.style.backgroundImage = 'url("images/play.png")';
+		playButtonContainer.style.backgroundImage = 'url("images/play_1.png")';
 		playButtonContainer.style['text-align'] = 'center';
 		return playButtonContainer;
 	}
@@ -142,7 +156,8 @@ function GameWindow(divId){
 		solveButtonContainer.style.height = '40px';
 		solveButtonContainer.style.float = 'left';
 		solveButtonContainer.style['line-height'] = '40px';
-		solveButtonContainer.style.backgroundImage = 'url("images/autosolve.png")';
+		solveButtonContainer.style['cursor'] = 'pointer';
+		solveButtonContainer.style.backgroundImage = 'url("images/autosolve_button.png")';
 		solveButtonContainer.style['text-align'] = 'center';
 		return solveButtonContainer;
 	}
@@ -155,7 +170,6 @@ function GameWindow(divId){
 		originalImageContainer.style.paddingTop = '20px';
 		originalImageContainer.style.paddingBottom = '20px';
 		originalImageContainer.src = 'images/danphe.png';
-		return originalImageContainer;		
+		return originalImageContainer;
 	}
-
 }
