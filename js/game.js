@@ -19,6 +19,10 @@ function Game(gameDivId){
 
 	currentPlayArea.initialize();
 
+	// initialize game controller
+	var gameController = new FlowControl(that.gameWindow);
+	gameController.initFlowControl();
+
 	//level selector element
 	var scaleId = that.gameWindow.scaleId;
 	var scaleBox = document.getElementById(scaleId);
@@ -39,6 +43,10 @@ function Game(gameDivId){
 	playB.onclick = function(){		
 		currentPlayArea.initGameState(scaleBox.value);
 		currentPlayArea.displaySlides();
+
+		// game start control
+		gameController.gameStartControl();
+
 		scoreB.innerHTML = 'Steps:' + currentPlayArea.gameState.stepsMoved;
 		if (currentPlayArea.gameState.row > 3) {
 			var randMoves = [ ];
@@ -88,7 +96,8 @@ function Game(gameDivId){
 	    }
 
 	    //function to auto solve
-	    autoSolveB.onclick = function(){
+	    autoSolveB.onclick = function(){ 
+	    	gameController.autosolveControl();
 	        var initialNode = new SlideNode(playArea.gameState);
 	        var goalState = new Matrix(playArea.gameState.row,playArea.gameState.row);
 	        goalState.initialize();
@@ -99,13 +108,18 @@ function Game(gameDivId){
 	        if (stepsToMove == false) {
 	        	scoreB.innerHTML = 'sorry try next!';
 	        	console.log('takes long try another!!');
+	        	
+
+	        	gameController.gameFinishedControl();
 	        }
 	        else{
 	        	playArea.gameState.stepsMoved = 0;
 		        var intervalId = setInterval(function(){
 		            if (stepsToMove.length == 0) {
+		            	
+		            	gameController.gameFinishedControl();
+						displayWin();
 		                clearInterval(intervalId);
-		                displayWin();
 		            }
 		            displayAutoSolve(stepsToMove[0]);
 		            stepsToMove.shift();
@@ -120,6 +134,8 @@ function Game(gameDivId){
 	        scoreB.innerHTML = 'Steps:' + playArea.gameState.stepsMoved;
 	        if (playArea.gameState.isSolved()) {
 	        	displayWin();
+	        	
+	        	gameController.gameFinishedControl();
 	        }
 		}
 
